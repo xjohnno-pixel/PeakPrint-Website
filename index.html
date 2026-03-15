@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeakPrint — Your Achievements. Printed.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            peak: {
+              900: '#0a1118',
+              800: '#0f1a24',
+              700: '#162533',
+              600: '#1e3044',
+              accent: '#c4956a',
+              light: '#e8d5c0',
+            }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      background: #0a1118;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a1118; }
+    ::-webkit-scrollbar-thumb { background: #c4956a44; border-radius: 3px; }
+
+    /* Hero parallax-like depth */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,17,24,0.3) 0%, rgba(10,17,24,0.1) 40%, rgba(10,17,24,0.6) 75%, rgba(10,17,24,1) 100%),
+        linear-gradient(to right, rgba(10,17,24,0.4) 0%, transparent 50%);
+      mix-blend-mode: normal;
+    }
+
+    /* Section number watermark */
+    .section-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(8rem, 15vw, 14rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(196,149,106,0.25);
+      line-height: 1;
+      position: absolute;
+      top: -1.5rem;
+      letter-spacing: -0.04em;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Image treatment */
+    .content-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .content-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .content-image:hover img {
+      transform: scale(1.03);
+    }
+    .content-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,17,24,0.5) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .content-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(196,149,106,0.08);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Subtle label */
+    .label-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #c4956a;
+    }
+    .label-line::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--line-color, #c4956a);
+    }
+
+    /* Nav link hover */
+    .nav-link {
+      position: relative;
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.04em;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #c4956a;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #c4956a; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .nav-link:active { opacity: 0.8; }
+
+    /* CTA button */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #c4956a;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+    }
+    .cta-btn:hover { color: #e8d5c0; transform: translateX(4px); }
+    .cta-btn:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .cta-btn:active { opacity: 0.8; }
+    .cta-btn svg {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cta-btn:hover svg { transform: translateX(3px); }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(226,232,240,0.5);
+      position: absolute;
+      right: 2.5rem;
+      bottom: 3rem;
+      z-index: 10;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(196,149,106,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.4; transform: scaleY(0.6); }
+    }
+
+    /* Fade-in on scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile hamburger */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 60;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #e2e8f0;
+      border-radius: 1px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .mobile-menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,17,24,0.97);
+      z-index: 55;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      color: #e2e8f0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .mobile-nav a:hover { color: #c4956a; }
+    .mobile-nav a:focus-visible { outline: 2px solid #c4956a; outline-offset: 4px; border-radius: 2px; }
+    .mobile-nav a:active { opacity: 0.8; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+      header nav { display: none !important; }
+      header a[href="#get-started"] { display: none !important; }
+
+      .hero-content {
+        padding-top: 30vh !important;
+      }
+      .hero-content h1 {
+        font-size: 2.2rem !important;
+      }
+      .hero-content p.body-text {
+        font-size: 0.95rem !important;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .section-image {
+        height: 350px !important;
+        order: -1;
+      }
+      .section-text {
+        padding: 0 !important;
+      }
+
+      .scroll-indicator { display: none; }
+
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .footer-bottom {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        text-align: center;
+      }
+
+      header {
+        padding: 1rem 1.25rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 1.8rem !important;
+      }
+      .hero-content {
+        padding-top: 25vh !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .section-image {
+        height: 280px !important;
+      }
+    }
+
+    /* Grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Grain texture overlay -->
+  <div class="grain"></div>
+
+  <!-- ========== HEADER ========== -->
+  <header style="position:fixed; top:0; left:0; right:0; z-index:50; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(to bottom, rgba(10,17,24,0.8), transparent); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);">
+    <!-- Logo -->
+    <a href="#" style="display:flex; align-items:center; z-index:10;" aria-label="PeakPrint Home">
+      <img src="PeakPrintWhite.png" alt="PeakPrint" style="height:28px; width:auto;">
+    </a>
+    <!-- Nav -->
+    <nav style="display:flex; gap:2.5rem; position:absolute; left:50%; transform:translateX(-50%);">
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#about" class="nav-link">About Us</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+    </nav>
+    <!-- CTA -->
+    <a href="#get-started" class="nav-link" style="display:flex; align-items:center; gap:6px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Get Started
+    </a>
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-nav').classList.toggle('open'); this.classList.toggle('active')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav">
+    <a href="#how-it-works" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">How It Works</a>
+    <a href="#about" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">About Us</a>
+    <a href="#gallery" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">Gallery</a>
+    <a href="#get-started" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">Get Started</a>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-section">
+    <div class="hero-bg">
+      <img src="HikeMountain 1.jpg" alt="Two hikers standing on a mountain ridge at golden hour">
+    </div>
+
+    <div class="hero-content" style="position:relative; z-index:10; flex:1; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; text-align:center; padding:0 2rem; padding-top:12vh;">
+      <p class="label-line" style="margin-bottom:1.5rem; color:#fff; --line-color:#fff;">Your Achievements. Printed.</p>
+      <h1 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:600; line-height:1.1; letter-spacing:-0.03em; color:#fff; max-width:700px;">
+        Turn Your Trails<br>Into Timeless Art
+      </h1>
+      <p class="body-text" style="margin-top:1.5rem; font-size:1.05rem; line-height:1.7; color:rgba(255,255,255,0.85); max-width:480px; text-shadow:0 1px 8px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.3);">
+        We transform your GPS adventures from Strava, AllTrails, and more into stunning 3D-printed framed trail maps you can hang on your wall.
+      </p>
+      <a href="#how-it-works" class="cta-btn" style="margin-top:2.5rem; font-size:0.9rem; color:#fff; text-shadow:0 1px 8px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.3);">
+        Discover How
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 01 ========== -->
+  <section id="how-it-works" style="position:relative; padding:6rem 2.5rem 3rem; max-width:1200px; margin:0 auto;">
+    <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+      <!-- Text -->
+      <div class="fade-up section-text" style="position:relative;">
+        <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Connect Your App</p>
+        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+          Sync Your<br>Adventures
+        </h2>
+        <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
+          Connect your favorite activity apps — Strava, AllTrails, Garmin, and more. We pull in the GPS data from your hikes, runs, rides, and ski days to recreate the exact terrain and trail you conquered.
+        </p>
+        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <!-- Image -->
+      <div class="fade-up content-image section-image" style="height:560px; transition-delay:0.15s;">
+        <img src="HikeMountain 2.jpg" alt="Hiker standing on misty mountain peak" style="object-position:center;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 02 ========== -->
+  <section id="about" style="position:relative; padding:3rem 2.5rem; max-width:1200px; margin:0 auto;">
+    <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+      <!-- Image -->
+      <div class="fade-up content-image section-image" style="height:560px;">
+        <img src="HikeMountain 3.jpg" alt="Hiker on dramatic rocky mountain ridge" style="object-position:center;">
+      </div>
+      <!-- Text -->
+      <div class="fade-up section-text" style="position:relative; transition-delay:0.15s;">
+        <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">3D Printed Terrain</p>
+        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+          Crafted With<br>Precision
+        </h2>
+        <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
+          Using high-resolution elevation data, we 3D print the actual terrain of your route — every ridge, valley, and switchback. Your trail is highlighted across the landscape, turning raw GPS data into a tactile, topographic masterpiece.
+        </p>
+        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 03 ========== -->
+  <section id="gallery" style="position:relative; padding:3rem 2.5rem 6rem; max-width:1200px; margin:0 auto;">
+    <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+      <!-- Text -->
+      <div class="fade-up section-text" style="position:relative;">
+        <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Framed & Delivered</p>
+        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+          Your Memory,<br>On Display
+        </h2>
+        <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
+          Each piece is professionally framed and ready to hang. Whether it's a summit hike, a century ride, a powder day, or a travel route — your personal achievement becomes a conversation piece and a lasting memory on your wall.
+        </p>
+        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <!-- Image -->
+      <div class="fade-up content-image section-image" style="height:560px; transition-delay:0.15s;">
+        <img src="HikeMountain 4.jpg" alt="Skier overlooking vast snowy mountain range" style="object-position:center;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer style="border-top:1px solid rgba(196,149,106,0.1); padding:4rem 2.5rem 2rem; max-width:1200px; margin:0 auto;">
+    <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
+      <!-- Brand col -->
+      <div>
+        <img src="PeakPrintWhite.png" alt="PeakPrint" style="height:24px; margin-bottom:1rem; opacity:0.8;">
+        <p style="font-size:0.85rem; line-height:1.7; color:rgba(226,232,240,0.4); max-width:280px;">
+          Transforming personal adventures into tangible, framed works of art through precision 3D printing.
+        </p>
+      </div>
+      <!-- Links col -->
+      <div>
+        <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#c4956a; margin-bottom:1rem; font-weight:600;">More on PeakPrint</h4>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">About Us</a></li>
+          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">How It Works</a></li>
+          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">Contact</a></li>
+          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="border-top:1px solid rgba(196,149,106,0.08); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Copyright 2026 PeakPrint. All rights reserved.</p>
+      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Your Achievements. Printed.</p>
+    </div>
+  </footer>
+
+  <!-- ========== SCROLL ANIMATION ========== -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
