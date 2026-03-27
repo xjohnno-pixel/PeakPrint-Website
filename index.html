@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PeakPrint — Your Achievements. Printed.</title>
+  <title>Peak Framed — Your Adventure. Framed.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
     ::-webkit-scrollbar-track { background: #0a1118; }
     ::-webkit-scrollbar-thumb { background: #c4956a44; border-radius: 3px; }
 
-    /* Hero parallax-like depth */
+    /* Hero */
     .hero-section {
       position: relative;
       min-height: 100vh;
@@ -79,10 +79,11 @@
       font-size: clamp(8rem, 15vw, 14rem);
       font-weight: 700;
       color: transparent;
-      -webkit-text-stroke: 2px rgba(196,149,106,0.25);
+      -webkit-text-stroke: 2px rgba(196,149,106,0.2);
       line-height: 1;
       position: absolute;
       top: -1.5rem;
+      left: -1rem;
       letter-spacing: -0.04em;
       user-select: none;
       pointer-events: none;
@@ -191,31 +192,104 @@
     }
     .cta-btn:hover svg { transform: translateX(3px); }
 
-    /* Scroll indicator */
+    /* Scroll indicator — bottom left like MNTN */
     .scroll-indicator {
       display: flex;
       align-items: center;
       gap: 14px;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(226,232,240,0.5);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.7);
       position: absolute;
-      right: 2.5rem;
+      left: 2.5rem;
       bottom: 3rem;
       z-index: 10;
     }
-    .scroll-line {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, rgba(196,149,106,0.6), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+    .scroll-indicator svg {
+      animation: scrollBounce 2s ease-in-out infinite;
     }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 1; transform: scaleY(1); }
-      50% { opacity: 0.4; transform: scaleY(0.6); }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* Social links — left side vertical */
+    .social-links {
+      position: fixed;
+      left: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      z-index: 40;
+    }
+    .social-links a {
+      color: rgba(255,255,255,0.5);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #fff;
+      transform: scale(1.15);
+    }
+    .social-links a:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .social-links a:active { opacity: 0.8; }
+    .social-links::before {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+    }
+    .social-links::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Vertical nav — right side like MNTN */
+    .vertical-nav {
+      position: fixed;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      z-index: 40;
+    }
+    .vertical-nav a {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      padding: 1rem 0;
+      transition: color 0.3s ease;
+    }
+    .vertical-nav a:hover { color: rgba(255,255,255,0.7); }
+    .vertical-nav a:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .vertical-nav a:active { opacity: 0.8; }
+    .vertical-nav a.active { color: #fff; }
+    .vertical-nav .nav-line {
+      width: 1px;
+      height: 50px;
+      background: rgba(255,255,255,0.15);
+      flex-shrink: 0;
     }
 
     /* Fade-in on scroll */
@@ -283,6 +357,7 @@
 
       .hero-content {
         padding-top: 30vh !important;
+        padding-left: 1.5rem !important;
       }
       .hero-content h1 {
         font-size: 2.2rem !important;
@@ -302,8 +377,13 @@
       .section-text {
         padding: 0 !important;
       }
+      .section-number {
+        font-size: 6rem !important;
+      }
 
-      .scroll-indicator { display: none; }
+      .scroll-indicator { left: 1.5rem !important; }
+      .social-links { display: none; }
+      .vertical-nav { display: none; }
 
       .footer-grid {
         grid-template-columns: 1fr !important;
@@ -352,11 +432,33 @@
   <!-- Grain texture overlay -->
   <div class="grain"></div>
 
+  <!-- ========== SOCIAL LINKS (left side) ========== -->
+  <div class="social-links">
+    <a href="https://www.instagram.com/peakframed" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ========== VERTICAL NAV (right side) ========== -->
+  <div class="vertical-nav">
+    <a href="#hero" class="active" data-section="hero">Start</a>
+    <div class="nav-line"></div>
+    <a href="#how-it-works" data-section="how-it-works">01</a>
+    <div class="nav-line"></div>
+    <a href="#about" data-section="about">02</a>
+    <div class="nav-line"></div>
+    <a href="#gallery" data-section="gallery">03</a>
+  </div>
+
   <!-- ========== HEADER ========== -->
   <header style="position:fixed; top:0; left:0; right:0; z-index:50; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(to bottom, rgba(10,17,24,0.8), transparent); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);">
     <!-- Logo -->
-    <a href="#" style="display:flex; align-items:center; z-index:10;" aria-label="PeakPrint Home">
-      <img src="PeakPrintWhite.png" alt="PeakPrint" style="height:28px; width:auto;">
+    <a href="#" style="display:flex; align-items:center; z-index:10;" aria-label="Peak Framed Home">
+      <img src="PeakFramedWhite.png" alt="Peak Framed" style="height:32px; width:auto;">
     </a>
     <!-- Nav -->
     <nav style="display:flex; gap:2.5rem; position:absolute; left:50%; transform:translateX(-50%);">
@@ -384,13 +486,14 @@
   </div>
 
   <!-- ========== HERO ========== -->
-  <section class="hero-section">
+  <section id="hero" class="hero-section">
     <div class="hero-bg">
       <img src="HikeMountain 1.jpg" alt="Two hikers standing on a mountain ridge at golden hour">
     </div>
 
-    <div class="hero-content" style="position:relative; z-index:10; flex:1; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; text-align:center; padding:0 2rem; padding-top:12vh;">
-      <p class="label-line" style="margin-bottom:1.5rem; color:#fff; --line-color:#fff;">Your Achievements. Printed.</p>
+    <!-- Left-aligned hero content like MNTN -->
+    <div class="hero-content" style="position:relative; z-index:10; flex:1; display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-start; text-align:left; padding:0 2.5rem; padding-top:14vh; padding-left:5rem;">
+      <p class="label-line" style="margin-bottom:1.5rem; color:#fff; --line-color:#fff;">Your Adventure. Framed.</p>
       <h1 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:600; line-height:1.1; letter-spacing:-0.03em; color:#fff; max-width:700px;">
         Turn Your Trails<br>Into Timeless Art
       </h1>
@@ -403,10 +506,10 @@
       </a>
     </div>
 
-    <!-- Scroll indicator -->
+    <!-- Scroll indicator — bottom left -->
     <div class="scroll-indicator">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+      <span>scroll down</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
     </div>
   </section>
 
@@ -415,6 +518,7 @@
     <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
       <!-- Text -->
       <div class="fade-up section-text" style="position:relative;">
+        <span class="section-number">01</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Connect Your App</p>
         <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Sync Your<br>Adventures
@@ -443,6 +547,7 @@
       </div>
       <!-- Text -->
       <div class="fade-up section-text" style="position:relative; transition-delay:0.15s;">
+        <span class="section-number" style="right:-1rem; left:auto;">02</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">3D Printed Terrain</p>
         <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Crafted With<br>Precision
@@ -463,6 +568,7 @@
     <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
       <!-- Text -->
       <div class="fade-up section-text" style="position:relative;">
+        <span class="section-number">03</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Framed & Delivered</p>
         <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Your Memory,<br>On Display
@@ -487,14 +593,14 @@
     <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
       <!-- Brand col -->
       <div>
-        <img src="PeakPrintWhite.png" alt="PeakPrint" style="height:24px; margin-bottom:1rem; opacity:0.8;">
+        <img src="PeakFramedWhite.png" alt="Peak Framed" style="height:28px; margin-bottom:1rem; opacity:0.8;">
         <p style="font-size:0.85rem; line-height:1.7; color:rgba(226,232,240,0.4); max-width:280px;">
           Transforming personal adventures into tangible, framed works of art through precision 3D printing.
         </p>
       </div>
       <!-- Links col -->
       <div>
-        <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#c4956a; margin-bottom:1rem; font-weight:600;">More on PeakPrint</h4>
+        <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#c4956a; margin-bottom:1rem; font-weight:600;">More on Peak Framed</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
           <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">About Us</a></li>
           <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">How It Works</a></li>
@@ -504,13 +610,14 @@
       </div>
     </div>
     <div class="footer-bottom" style="border-top:1px solid rgba(196,149,106,0.08); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center;">
-      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Copyright 2026 PeakPrint. All rights reserved.</p>
-      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Your Achievements. Printed.</p>
+      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Copyright 2026 Peak Framed. All rights reserved.</p>
+      <p style="font-size:0.75rem; color:rgba(226,232,240,0.3);">Your Adventure. Framed.</p>
     </div>
   </footer>
 
-  <!-- ========== SCROLL ANIMATION ========== -->
+  <!-- ========== SCRIPTS ========== -->
   <script>
+    // Fade-in on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -520,6 +627,22 @@
     }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Vertical nav — highlight active section on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.vertical-nav a');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.vertical-nav a[data-section="${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
+
+    sections.forEach(section => navObserver.observe(section));
   </script>
 
 </body>
