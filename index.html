@@ -292,6 +292,136 @@
       flex-shrink: 0;
     }
 
+    /* Gallery masonry */
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+    .gallery-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .gallery-col:nth-child(2) { margin-top: 40px; }
+    .gallery-col:nth-child(4) { margin-top: 25px; }
+    .gallery-col:nth-child(5) { margin-top: 55px; }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 8px 16px rgba(196,149,106,0.08);
+    }
+    .gallery-item:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .gallery-item:active { transform: translateY(-2px); }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,17,24,0.35) 0%, transparent 40%);
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-item:hover::after {
+      opacity: 0.5;
+    }
+
+    /* Lightbox */
+    .gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(10,17,24,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gallery-lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-img {
+      max-width: 85vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      transform: scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gallery-lightbox.active .lightbox-img {
+      transform: scale(1);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+      line-height: 1;
+    }
+    .lightbox-close:hover { color: #fff; transform: scale(1.15); }
+    .lightbox-close:focus-visible { outline: 2px solid #c4956a; outline-offset: 4px; border-radius: 2px; }
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+    .lightbox-prev { left: 2rem; }
+    .lightbox-next { right: 2rem; }
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: rgba(196,149,106,0.15);
+      color: #fff;
+    }
+    .lightbox-prev:focus-visible,
+    .lightbox-next:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 4px;
+    }
+    .lightbox-prev:active,
+    .lightbox-next:active { transform: translateY(-50%) scale(0.95); }
+
     /* Fade-in on scroll */
     .fade-up {
       opacity: 0;
@@ -398,6 +528,17 @@
       header {
         padding: 1rem 1.25rem !important;
       }
+
+      .gallery-masonry {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .gallery-col { margin-top: 0 !important; }
+      .gallery-col:nth-child(2) { margin-top: 20px !important; }
+
+      .lightbox-prev { left: 0.75rem; }
+      .lightbox-next { right: 0.75rem; }
+      .lightbox-img { max-width: 95vw; max-height: 80vh; }
     }
 
     @media (max-width: 480px) {
@@ -588,6 +729,52 @@
     </div>
   </section>
 
+  <!-- ========== GALLERY ========== -->
+  <section id="our-work" style="position:relative; padding:6rem 2.5rem 4rem; max-width:1200px; margin:0 auto;">
+    <div class="fade-up" style="margin-bottom:3rem;">
+      <p class="label-line" style="margin-bottom:1.25rem;">Our Work</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+        Gallery
+      </h2>
+    </div>
+
+    <div class="gallery-masonry fade-up">
+      <div class="gallery-col">
+        <div class="gallery-item" data-index="0"><img src="gallery/gallery-1.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="1"><img src="gallery/gallery-2.jpg" alt="Peak Framed trail map"></div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-item" data-index="2"><img src="gallery/gallery-3.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="3"><img src="gallery/gallery-4.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="4"><img src="gallery/gallery-5.jpg" alt="Peak Framed trail map"></div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-item" data-index="5"><img src="gallery/gallery-6.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="6"><img src="gallery/gallery-7.jpg" alt="Peak Framed trail map"></div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-item" data-index="7"><img src="gallery/gallery-8.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="8"><img src="gallery/gallery-9.jpg" alt="Peak Framed trail map"></div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-item" data-index="9"><img src="gallery/gallery-10.jpg" alt="Peak Framed trail map"></div>
+        <div class="gallery-item" data-index="10"><img src="gallery/gallery-11.jpg" alt="Peak Framed trail map"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox overlay -->
+  <div class="gallery-lightbox" id="galleryLightbox">
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-prev" aria-label="Previous image">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-next" aria-label="Next image">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery image enlarged">
+  </div>
+
   <!-- ========== FOOTER ========== -->
   <footer style="border-top:1px solid rgba(196,149,106,0.1); padding:4rem 2.5rem 2rem; max-width:1200px; margin:0 auto;">
     <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
@@ -628,6 +815,48 @@
     }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Gallery lightbox
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const gallerySrcs = Array.from(galleryItems).map(item => item.querySelector('img').src);
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = gallerySrcs[currentIndex];
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + gallerySrcs.length) % gallerySrcs.length;
+      lightboxImg.src = gallerySrcs[currentIndex];
+    }
+    function showNext() {
+      currentIndex = (currentIndex + 1) % gallerySrcs.length;
+      lightboxImg.src = gallerySrcs[currentIndex];
+    }
+
+    galleryItems.forEach(item => {
+      item.setAttribute('tabindex', '0');
+      item.addEventListener('click', () => openLightbox(parseInt(item.dataset.index)));
+      item.addEventListener('keydown', (e) => { if (e.key === 'Enter') openLightbox(parseInt(item.dataset.index)); });
+    });
+    document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    document.querySelector('.lightbox-prev').addEventListener('click', showPrev);
+    document.querySelector('.lightbox-next').addEventListener('click', showNext);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
 
     // Vertical nav — highlight active section on scroll
     const sections = document.querySelectorAll('section[id]');
