@@ -294,25 +294,17 @@
 
     /* Gallery masonry */
     .gallery-masonry {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      align-items: start;
+      columns: 5;
+      column-gap: 14px;
     }
-    .gallery-col {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .gallery-col:nth-child(2) { margin-top: 40px; }
-    .gallery-col:nth-child(4) { margin-top: 25px; }
-    .gallery-col:nth-child(5) { margin-top: 55px; }
 
     .gallery-item {
       position: relative;
       overflow: hidden;
       border-radius: 6px;
       cursor: pointer;
+      break-inside: avoid;
+      margin-bottom: 14px;
       transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .gallery-item:hover {
@@ -530,15 +522,26 @@
       }
 
       .gallery-masonry {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        columns: 2 !important;
+        column-gap: 10px;
       }
-      .gallery-col { margin-top: 0 !important; }
-      .gallery-col:nth-child(2) { margin-top: 20px !important; }
+      .gallery-item {
+        margin-bottom: 10px;
+      }
 
       .lightbox-prev { left: 0.75rem; }
       .lightbox-next { right: 0.75rem; }
       .lightbox-img { max-width: 95vw; max-height: 80vh; }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .gallery-masonry {
+        columns: 3 !important;
+        column-gap: 12px;
+      }
+      .gallery-item {
+        margin-bottom: 12px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -739,27 +742,17 @@
     </div>
 
     <div class="gallery-masonry fade-up">
-      <div class="gallery-col">
-        <div class="gallery-item" data-index="0"><img src="gallery/gallery-1.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="1"><img src="gallery/gallery-2.jpg" alt="Peak Framed trail map"></div>
-      </div>
-      <div class="gallery-col">
-        <div class="gallery-item" data-index="2"><img src="gallery/gallery-3.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="3"><img src="gallery/gallery-4.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="4"><img src="gallery/gallery-5.jpg" alt="Peak Framed trail map"></div>
-      </div>
-      <div class="gallery-col">
-        <div class="gallery-item" data-index="5"><img src="gallery/gallery-6.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="6"><img src="gallery/gallery-7.jpg" alt="Peak Framed trail map"></div>
-      </div>
-      <div class="gallery-col">
-        <div class="gallery-item" data-index="7"><img src="gallery/gallery-8.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="8"><img src="gallery/gallery-9.jpg" alt="Peak Framed trail map"></div>
-      </div>
-      <div class="gallery-col">
-        <div class="gallery-item" data-index="9"><img src="gallery/gallery-10.jpg" alt="Peak Framed trail map"></div>
-        <div class="gallery-item" data-index="10"><img src="gallery/gallery-11.jpg" alt="Peak Framed trail map"></div>
-      </div>
+      <div class="gallery-item" data-index="0"><img src="gallery/gallery-1.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="1"><img src="gallery/gallery-2.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="2"><img src="gallery/gallery-3.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="3"><img src="gallery/gallery-4.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="4"><img src="gallery/gallery-5.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="5"><img src="gallery/gallery-6.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="6"><img src="gallery/gallery-7.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="7"><img src="gallery/gallery-8.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="8"><img src="gallery/gallery-9.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="9"><img src="gallery/gallery-10.jpg" alt="Peak Framed trail map"></div>
+      <div class="gallery-item" data-index="10"><img src="gallery/gallery-11.jpg" alt="Peak Framed trail map"></div>
     </div>
   </section>
 
