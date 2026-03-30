@@ -2,8 +2,8 @@
 
 ## Project Overview
 - **Brand:** Peak Framed (formerly PeakPrint)
-- **Slogan:** "Your adventure. Framed."
-- **Product:** 3D-printed framed trail maps from GPS data (Strava, AllTrails, Garmin, etc.)
+- **Slogan:** "Your Adventure. Printed."
+- **Product:** 3D-printed framed adventure maps from GPS data (Strava, AllTrails, Garmin, etc.)
 - **Domain:** peakframed.com.au
 - **Email:** hello@peakframed.com.au
 - **ABN:** 23 937 267 604
