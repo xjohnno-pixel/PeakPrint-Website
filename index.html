@@ -851,6 +851,41 @@
       if (e.key === 'ArrowRight') showNext();
     });
 
+    // Touch swipe for lightbox
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let isSwiping = false;
+
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+      isSwiping = true;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      const diffX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+      const diffY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+      if (diffX > diffY && diffX > 10) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    lightbox.addEventListener('touchend', (e) => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
+      const minSwipe = 50;
+      if (Math.abs(swipeDistance) < minSwipe) return;
+      if (swipeDistance < 0) {
+        showNext();
+      } else {
+        showPrev();
+      }
+    }, { passive: true });
+
     // Vertical nav — highlight active section on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.vertical-nav a');
