@@ -414,6 +414,276 @@
     .lightbox-prev:active,
     .lightbox-next:active { transform: translateY(-50%) scale(0.95); }
 
+    /* ===== Product / Order Section ===== */
+    .product-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .product-image-wrap {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0f1a24;
+      aspect-ratio: 1;
+    }
+    .product-image-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .product-image-wrap img.active { opacity: 1; }
+
+    .product-right h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .product-right .product-subtitle {
+      font-size: 0.9rem;
+      color: rgba(226,232,240,0.5);
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+    .product-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 1.5rem 0;
+    }
+    .product-price .price-note {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: rgba(226,232,240,0.4);
+      margin-left: 0.5rem;
+    }
+
+    /* Frame selector */
+    .frame-selector {
+      margin: 1.5rem 0;
+    }
+    .frame-selector-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      color: rgba(226,232,240,0.5);
+      margin-bottom: 0.75rem;
+    }
+    .frame-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .frame-btn {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: rgba(226,232,240,0.6);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+      text-align: center;
+    }
+    .frame-btn:hover {
+      border-color: rgba(196,149,106,0.4);
+      color: #e2e8f0;
+    }
+    .frame-btn.active {
+      border-color: #c4956a;
+      color: #fff;
+      background: rgba(196,149,106,0.1);
+    }
+    .frame-btn:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    /* Order form fields */
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .order-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .order-field label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: rgba(226,232,240,0.45);
+    }
+    .order-field input,
+    .order-field select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+      width: 100%;
+    }
+    .order-field input::placeholder {
+      color: rgba(226,232,240,0.25);
+    }
+    .order-field input:focus,
+    .order-field select:focus {
+      outline: none;
+      border-color: #c4956a;
+    }
+    .order-field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .order-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23c4956a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.5rem;
+    }
+    .order-field select option {
+      background: #0f1a24;
+      color: #e2e8f0;
+    }
+
+    /* Order button */
+    .order-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #c4956a;
+      border: none;
+      border-radius: 6px;
+      color: #0a1118;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      margin-top: 0.5rem;
+    }
+    .order-btn:hover {
+      background: #d4a87a;
+      transform: translateY(-1px);
+    }
+    .order-btn:active {
+      transform: translateY(0);
+    }
+    .order-btn:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .order-note {
+      font-size: 0.78rem;
+      color: rgba(226,232,240,0.35);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+
+    /* Delivery info */
+    .delivery-info {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .delivery-option {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .delivery-option svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #c4956a;
+    }
+    .delivery-option-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(226,232,240,0.7);
+    }
+    .delivery-option-text {
+      font-size: 0.78rem;
+      color: rgba(226,232,240,0.4);
+      line-height: 1.5;
+    }
+
+    /* Product accordion */
+    .product-accordion {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .product-accordion-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .product-accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .product-accordion-header:hover { color: #c4956a; }
+    .product-accordion-header:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+    .product-accordion-header svg {
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      color: rgba(226,232,240,0.4);
+    }
+    .product-accordion-item.open .product-accordion-header svg {
+      transform: rotate(180deg);
+    }
+    .product-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .product-accordion-item.open .product-accordion-body {
+      max-height: 500px;
+    }
+    .product-accordion-content {
+      padding: 0 0 1rem;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(226,232,240,0.5);
+    }
+
     /* Fade-in on scroll */
     .fade-up {
       opacity: 0;
@@ -527,6 +797,17 @@
       }
       .gallery-item {
         margin-bottom: 10px;
+      }
+
+      .product-section {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .product-image-wrap {
+        max-height: 400px;
+      }
+      .order-field-row {
+        grid-template-columns: 1fr !important;
       }
 
       .lightbox-prev { left: 0.75rem; }
@@ -768,6 +1049,168 @@
     <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery image enlarged">
   </div>
 
+  <!-- ========== ORDER / PRODUCT ========== -->
+  <section id="get-started" style="position:relative; padding:6rem 0 4rem; background: linear-gradient(170deg, #0f1a24 0%, #162533 40%, #1a2d3f 70%, #0f1a24 100%);">
+    <div style="max-width:1200px; margin:0 auto; padding:0 2.5rem;">
+    <div class="fade-up" style="margin-bottom:3rem;">
+      <p class="label-line" style="margin-bottom:1.25rem;">Order Yours</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+        Get Your Trail Map
+      </h2>
+    </div>
+
+    <div class="product-section fade-up">
+      <!-- Left: Product image -->
+      <div class="product-image-wrap">
+        <img src="product/frame-black.jpg" alt="Trail map in black frame" class="active" id="imgBlack">
+        <img src="product/frame-white.jpg" alt="Trail map in white frame" id="imgWhite">
+      </div>
+
+      <!-- Right: Controls & form -->
+      <div class="product-right">
+        <h2>3D Trail Map Print</h2>
+        <p class="product-subtitle">Your GPS adventure, 3D-printed in stunning detail and professionally framed.</p>
+
+        <div class="product-price">
+          $149 <span class="price-note">AUD · Delivery included</span>
+        </div>
+
+        <!-- Frame selection -->
+        <div class="frame-selector">
+          <div class="frame-selector-title">Frame Colour</div>
+          <div class="frame-btns">
+            <button class="frame-btn active" data-frame="black" onclick="selectFrame('black')">Black Frame</button>
+            <button class="frame-btn" data-frame="white" onclick="selectFrame('white')">White Frame</button>
+          </div>
+        </div>
+
+        <!-- Order form -->
+        <form class="order-form" id="orderForm" action="https://formsubmit.co/hello@peakframed.com.au" method="POST">
+          <input type="hidden" name="_subject" value="New Peak Framed Order">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="Frame Colour" id="frameColourInput" value="Black Frame">
+
+          <div class="order-field">
+            <label for="adventureTitle">Title of Adventure</label>
+            <input type="text" id="adventureTitle" name="Title of Adventure" placeholder="e.g. Mt Kosciuszko Summit" required>
+          </div>
+
+          <div class="order-field">
+            <label for="adventureSubtitle">Subtitle</label>
+            <input type="text" id="adventureSubtitle" name="Subtitle" placeholder="e.g. The Roof of Australia">
+          </div>
+
+          <div class="order-field">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="Full Name" placeholder="Name to be printed" required>
+          </div>
+
+          <div class="order-field-row">
+            <div class="order-field">
+              <label for="distance">Distance</label>
+              <input type="text" id="distance" name="Distance" placeholder="e.g. 22.4 km">
+            </div>
+            <div class="order-field">
+              <label for="elevation">Elevation</label>
+              <input type="text" id="elevation" name="Elevation" placeholder="e.g. 1,280 m">
+            </div>
+          </div>
+
+          <div class="order-field-row">
+            <div class="order-field">
+              <label for="location">Location</label>
+              <input type="text" id="location" name="Location" placeholder="e.g. Kosciuszko NP, NSW">
+            </div>
+            <div class="order-field">
+              <label for="eventDate">Date of Event</label>
+              <input type="date" id="eventDate" name="Date of Event" required>
+            </div>
+          </div>
+
+          <div class="order-field">
+            <label for="timeCompleted">Time Completed</label>
+            <input type="text" id="timeCompleted" name="Time Completed" placeholder="e.g. 5h 32m">
+          </div>
+
+          <div class="order-field">
+            <label for="deliveryMethod">Delivery Method</label>
+            <select id="deliveryMethod" name="Delivery Method" required>
+              <option value="delivery">Delivery (included in price)</option>
+              <option value="collect">Collect in person</option>
+            </select>
+          </div>
+
+          <button type="submit" class="order-btn">Order Now — $149 AUD</button>
+
+          <p class="order-note">
+            After placing your order, we'll send you a confirmation email. If we need any additional information or clarification about your adventure details, we'll reach out to you via email.
+          </p>
+        </form>
+
+        <!-- Delivery info -->
+        <div class="delivery-info">
+          <div class="delivery-option">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <div>
+              <div class="delivery-option-title">Free Delivery</div>
+              <div class="delivery-option-text">Australia-wide delivery included in price. Allow 7–14 business days for printing and shipping.</div>
+            </div>
+          </div>
+          <div class="delivery-option">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div class="delivery-option-title">Prefer to collect?</div>
+              <div class="delivery-option-text">Select "Collect in person" above and we'll notify you when your print is ready for pickup.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion details -->
+        <div class="product-accordion">
+          <div class="product-accordion-item">
+            <button class="product-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+              Description
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="product-accordion-body">
+              <div class="product-accordion-content">
+                Each trail map is created from your actual GPS data — imported from Strava, AllTrails, Garmin, or any GPX file. The terrain is 3D-printed with high-resolution elevation data, and your trail is highlighted across the landscape. Professionally framed and ready to hang.
+              </div>
+            </div>
+          </div>
+          <div class="product-accordion-item">
+            <button class="product-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+              What's Included
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="product-accordion-body">
+              <div class="product-accordion-content">
+                • 3D-printed topographic trail map<br>
+                • Custom title, subtitle &amp; adventure stats<br>
+                • Professional frame (black or white)<br>
+                • Ready to hang hardware<br>
+                • Australia-wide delivery
+              </div>
+            </div>
+          </div>
+          <div class="product-accordion-item">
+            <button class="product-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+              Dimensions &amp; Specs
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="product-accordion-body">
+              <div class="product-accordion-content">
+                Details coming soon — check back or contact us at <a href="mailto:hello@peakframed.com.au" style="color:#c4956a;">hello@peakframed.com.au</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div><!-- /inner container -->
+  </section>
+
   <!-- ========== FOOTER ========== -->
   <footer style="border-top:1px solid rgba(196,149,106,0.1); padding:4rem 2.5rem 2rem; max-width:1200px; margin:0 auto;">
     <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
@@ -901,6 +1344,15 @@
     }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
 
     sections.forEach(section => navObserver.observe(section));
+
+    // Frame selector
+    function selectFrame(color) {
+      document.querySelectorAll('.frame-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.frame-btn[data-frame="${color}"]`).classList.add('active');
+      document.getElementById('imgBlack').classList.toggle('active', color === 'black');
+      document.getElementById('imgWhite').classList.toggle('active', color === 'white');
+      document.getElementById('frameColourInput').value = color === 'black' ? 'Black Frame' : 'White Frame';
+    }
   </script>
 
 </body>
