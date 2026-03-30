@@ -574,6 +574,118 @@
       color: #e2e8f0;
     }
 
+    /* Route upload section */
+    .route-upload-section {
+      background: rgba(196,149,106,0.04);
+      border: 1px solid rgba(196,149,106,0.15);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    .route-upload-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.4rem;
+    }
+    .route-upload-desc {
+      font-size: 0.78rem;
+      color: rgba(226,232,240,0.4);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .route-option-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+    .route-tab {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 0.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: rgba(226,232,240,0.5);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+    }
+    .route-tab:hover {
+      border-color: rgba(196,149,106,0.4);
+      color: #e2e8f0;
+    }
+    .route-tab.active {
+      border-color: #c4956a;
+      color: #fff;
+      background: rgba(196,149,106,0.1);
+    }
+    .route-tab:focus-visible {
+      outline: 2px solid #c4956a;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .route-tab-content {
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .route-field-hint {
+      font-size: 0.7rem;
+      color: rgba(226,232,240,0.3);
+      margin-top: 0.25rem;
+    }
+    .file-upload-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem 1rem;
+      border: 1.5px dashed rgba(196,149,106,0.25);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.02);
+      cursor: pointer;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .file-upload-zone:hover {
+      border-color: rgba(196,149,106,0.5);
+      background: rgba(196,149,106,0.04);
+    }
+    .file-upload-zone.drag-over {
+      border-color: #c4956a;
+      background: rgba(196,149,106,0.08);
+    }
+    .file-upload-zone.has-file {
+      border-color: rgba(196,149,106,0.4);
+      border-style: solid;
+    }
+    .file-upload-text {
+      font-size: 0.82rem;
+      color: rgba(226,232,240,0.5);
+      font-weight: 500;
+    }
+    .file-upload-hint {
+      font-size: 0.7rem;
+      color: rgba(226,232,240,0.25);
+    }
+    .file-name-display {
+      font-size: 0.75rem;
+      color: #c4956a;
+      margin-top: 0.4rem;
+      display: block;
+      min-height: 1rem;
+    }
+
     /* Order button */
     .order-btn {
       width: 100%;
@@ -1092,11 +1204,69 @@
         </div>
 
         <!-- Order form -->
-        <form class="order-form" id="orderForm" action="https://formsubmit.co/hello@peakframed.com.au" method="POST">
+        <form class="order-form" id="orderForm" action="https://formsubmit.co/hello@peakframed.com.au" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="_subject" value="New Peak Framed Order">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="Frame Colour" id="frameColourInput" value="Black Frame">
+
+          <!-- GPS Route Data -->
+          <div class="route-upload-section">
+            <div class="route-upload-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c4956a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Your Route Data</span>
+            </div>
+            <p class="route-upload-desc">Share your adventure with us using any of the options below. We'll use this to create your 3D map.</p>
+
+            <div class="route-option-tabs">
+              <button type="button" class="route-tab active" data-tab="link" onclick="switchRouteTab('link')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Paste Link
+              </button>
+              <button type="button" class="route-tab" data-tab="file" onclick="switchRouteTab('file')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Upload File
+              </button>
+              <button type="button" class="route-tab" data-tab="screenshot" onclick="switchRouteTab('screenshot')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Screenshot
+              </button>
+            </div>
+
+            <div class="route-tab-content" id="routeTabLink">
+              <div class="order-field">
+                <label for="routeLink">Activity Link</label>
+                <input type="url" id="routeLink" name="Route Link" placeholder="e.g. https://www.strava.com/activities/123456789">
+                <span class="route-field-hint">Strava, AllTrails, Garmin, Komoot, or any activity URL</span>
+              </div>
+            </div>
+
+            <div class="route-tab-content" id="routeTabFile" style="display:none;">
+              <div class="order-field">
+                <label for="routeFile">GPX / KML / FIT File</label>
+                <div class="file-upload-zone" id="fileUploadZone">
+                  <input type="file" id="routeFile" name="attachment" accept=".gpx,.kml,.fit,.tcx" style="display:none;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(196,149,106,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span class="file-upload-text">Click to browse or drag & drop</span>
+                  <span class="file-upload-hint">GPX, KML, FIT, or TCX files</span>
+                </div>
+                <span class="file-name-display" id="fileNameDisplay"></span>
+              </div>
+            </div>
+
+            <div class="route-tab-content" id="routeTabScreenshot" style="display:none;">
+              <div class="order-field">
+                <label for="routeScreenshot">Screenshot of Your Route</label>
+                <div class="file-upload-zone" id="screenshotUploadZone">
+                  <input type="file" id="routeScreenshot" name="attachment" accept="image/*" style="display:none;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(196,149,106,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span class="file-upload-text">Click to browse or drag & drop</span>
+                  <span class="file-upload-hint">PNG, JPG, or screenshot from your app</span>
+                </div>
+                <span class="file-name-display" id="screenshotNameDisplay"></span>
+              </div>
+            </div>
+          </div>
 
           <div class="order-field">
             <label for="adventureTitle">Title of Adventure</label>
@@ -1360,6 +1530,52 @@
       document.getElementById('imgWhite').classList.toggle('active', color === 'white');
       document.getElementById('frameColourInput').value = color === 'black' ? 'Black Frame' : 'White Frame';
     }
+
+    // Route tab switching
+    function switchRouteTab(tab) {
+      document.querySelectorAll('.route-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.route-tab[data-tab="${tab}"]`).classList.add('active');
+      document.getElementById('routeTabLink').style.display = tab === 'link' ? 'block' : 'none';
+      document.getElementById('routeTabFile').style.display = tab === 'file' ? 'block' : 'none';
+      document.getElementById('routeTabScreenshot').style.display = tab === 'screenshot' ? 'block' : 'none';
+    }
+
+    // File upload zones
+    function setupFileUpload(zoneId, inputId, displayId) {
+      const zone = document.getElementById(zoneId);
+      const input = document.getElementById(inputId);
+      const display = document.getElementById(displayId);
+      if (!zone || !input) return;
+
+      zone.addEventListener('click', () => input.click());
+
+      input.addEventListener('change', () => {
+        if (input.files.length > 0) {
+          display.textContent = '✓ ' + input.files[0].name;
+          zone.classList.add('has-file');
+        }
+      });
+
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('drag-over');
+      });
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('drag-over');
+      });
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        if (e.dataTransfer.files.length > 0) {
+          input.files = e.dataTransfer.files;
+          display.textContent = '✓ ' + e.dataTransfer.files[0].name;
+          zone.classList.add('has-file');
+        }
+      });
+    }
+
+    setupFileUpload('fileUploadZone', 'routeFile', 'fileNameDisplay');
+    setupFileUpload('screenshotUploadZone', 'routeScreenshot', 'screenshotNameDisplay');
   </script>
 
 </body>
