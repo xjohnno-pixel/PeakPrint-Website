@@ -995,6 +995,10 @@
     <a href="#about" data-section="about">02</a>
     <div class="nav-line"></div>
     <a href="#gallery" data-section="gallery">03</a>
+    <div class="nav-line"></div>
+    <a href="#our-work" data-section="our-work">Our Work</a>
+    <div class="nav-line"></div>
+    <a href="#get-started" data-section="get-started">Order Yours</a>
   </div>
 
   <!-- ========== HEADER ========== -->
@@ -1010,11 +1014,6 @@
       <a href="#gallery" class="nav-link">Gallery</a>
       <a href="#get-started" class="nav-link">Order Yours</a>
     </nav>
-    <!-- CTA -->
-    <a href="#get-started" class="nav-link" style="display:flex; align-items:center; gap:6px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Get Started
-    </a>
     <!-- Mobile menu button -->
     <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-nav').classList.toggle('open'); this.classList.toggle('active')" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -1062,7 +1061,7 @@
     <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
       <!-- Text -->
       <div class="fade-up section-text" style="position:relative;">
-        <span class="section-number">01</span>
+        <span class="section-number" style="right:-1rem; left:auto;">01</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Connect Your App</p>
         <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Sync Your<br>Adventures
@@ -1070,8 +1069,8 @@
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
           Connect your favorite activity apps — Strava, AllTrails, Garmin, and more. We pull in the GPS data from your hikes, runs, rides, and ski days to recreate the exact terrain and route you conquered.
         </p>
-        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
-          Learn More
+        <a href="#about" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          About Us
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -1099,8 +1098,8 @@
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
           Using high-resolution elevation data, we 3D print the actual terrain of your route — every ridge, valley, and switchback. Your adventure is highlighted across the landscape, turning raw GPS data into a tactile, topographic masterpiece.
         </p>
-        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
-          Learn More
+        <a href="#our-work" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          See Our Creations
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -1112,7 +1111,7 @@
     <div class="section-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
       <!-- Text -->
       <div class="fade-up section-text" style="position:relative;">
-        <span class="section-number">03</span>
+        <span class="section-number" style="right:-1rem; left:auto;">03</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Framed & Delivered</p>
         <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Your Memory,<br>On Display
@@ -1120,8 +1119,8 @@
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
           Each piece is professionally framed and ready to hang. Whether it's a summit hike, a century ride, a powder day, or a travel route — your personal achievement becomes a conversation piece and a lasting memory on your wall.
         </p>
-        <a href="#" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
-          Learn More
+        <a href="#get-started" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+          Start Your Order
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -1153,6 +1152,13 @@
       <div class="gallery-item" data-index="8"><img src="gallery/gallery-9.jpg" alt="Peak Framed adventure map"></div>
       <div class="gallery-item" data-index="9"><img src="gallery/gallery-10.jpg" alt="Peak Framed adventure map"></div>
       <div class="gallery-item" data-index="10"><img src="gallery/gallery-11.jpg" alt="Peak Framed adventure map"></div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="#hero" class="cta-btn" style="font-size:0.85rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        Back to Top
+      </a>
     </div>
   </section>
 
@@ -1187,8 +1193,8 @@
 
       <!-- Right: Controls & form -->
       <div class="product-right">
-        <h2>3D Adventure Map Print</h2>
-        <p class="product-subtitle">Your GPS adventure, 3D-printed in stunning detail and professionally framed.</p>
+        <h2>Bring Your Journey to Life</h2>
+        <p class="product-subtitle">Your accomplishment, beautifully 3D-printed in stunning detail and professionally framed.</p>
 
         <div class="product-price">
           $149 <span class="price-note">AUD · Delivery included</span>
