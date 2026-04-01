@@ -957,6 +957,80 @@
       }
     }
 
+    /* About Us section */
+    .about-us-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-us-image {
+      position: sticky;
+      top: 6rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .about-us-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .about-us-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,17,24,0.3) 0%, transparent 40%);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    .about-us-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .about-us-text p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(226,232,240,0.6);
+    }
+    .about-us-lead {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem !important;
+      font-weight: 500;
+      line-height: 1.5 !important;
+      color: #e2e8f0 !important;
+      font-style: italic;
+    }
+    .about-us-highlight {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem !important;
+      font-weight: 600;
+      color: #c4956a !important;
+    }
+    .about-us-sign-off {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem !important;
+      font-weight: 500;
+      color: #e8d5c0 !important;
+      font-style: italic;
+      margin-top: 0.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(196,149,106,0.15);
+    }
+
+    @media (max-width: 768px) {
+      .about-us-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .about-us-image {
+        position: relative;
+        top: 0;
+        max-width: 100%;
+      }
+    }
+
     /* Grain overlay */
     .grain {
       position: fixed;
@@ -999,6 +1073,8 @@
     <a href="#our-work" data-section="our-work">Our Work</a>
     <div class="nav-line"></div>
     <a href="#get-started" data-section="get-started">Order Yours</a>
+    <div class="nav-line"></div>
+    <a href="#about-us" data-section="about-us">Who We Are</a>
   </div>
 
   <!-- ========== HEADER ========== -->
@@ -1010,8 +1086,8 @@
     <!-- Nav -->
     <nav style="display:flex; gap:2.5rem; position:absolute; left:50%; transform:translateX(-50%);">
       <a href="#how-it-works" class="nav-link">How It Works</a>
-      <a href="#about" class="nav-link">About Us</a>
-      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#about-us" class="nav-link">About Us</a>
+      <a href="#our-work" class="nav-link">Gallery</a>
       <a href="#get-started" class="nav-link">Order Yours</a>
     </nav>
     <!-- Mobile menu button -->
@@ -1023,8 +1099,8 @@
   <!-- Mobile nav overlay -->
   <div class="mobile-nav">
     <a href="#how-it-works" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">How It Works</a>
-    <a href="#about" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">About Us</a>
-    <a href="#gallery" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">Gallery</a>
+    <a href="#about-us" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">About Us</a>
+    <a href="#our-work" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">Gallery</a>
     <a href="#get-started" onclick="document.querySelector('.mobile-nav').classList.remove('open'); document.querySelector('.mobile-menu-btn').classList.remove('active')">Order Yours</a>
   </div>
 
@@ -1394,6 +1470,43 @@
     </div><!-- /inner container -->
   </section>
 
+  <!-- ========== ABOUT US ========== -->
+  <section id="about-us" style="position:relative; padding:6rem 2.5rem; max-width:1200px; margin:0 auto;">
+    <div class="fade-up" style="margin-bottom:3rem;">
+      <p class="label-line" style="margin-bottom:1.25rem;">Who We Are</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+        About Us
+      </h2>
+    </div>
+
+    <div class="about-us-grid fade-up">
+      <!-- Photo -->
+      <div class="about-us-image">
+        <img src="https://placehold.co/600x750/162533/c4956a?text=John+%26+Keegan" alt="John and Keegan — founders of Peak Framed">
+      </div>
+      <!-- Text -->
+      <div class="about-us-text">
+        <p class="about-us-lead">Some of our best memories live inside an app.</p>
+
+        <p>That summit you finally reached after months of training. The trail that pushed you harder than you thought you could go. The ride that made you fall in love with a place you'd never been. They're all there — buried in a feed, reduced to a screenshot you show someone over coffee before the conversation moves on.</p>
+
+        <p>We wanted more than that.</p>
+
+        <p>We're John and Keegan — two mates from Melbourne who love 3D printing and love the outdoors even more. We've spent years chasing trails, bagging peaks, and pushing each other up mountains we probably should've trained harder for. And every time we finished something we were proud of, we had the same problem: there was no good way to hold onto it.</p>
+
+        <p>Medals end up in drawers. Screenshots get lost in camera rolls. The story fades.</p>
+
+        <p class="about-us-highlight">So we built Peak Framed.</p>
+
+        <p>Every piece we make starts with your actual GPS data — the route you ran, hiked, or rode — and turns it into a 3D-printed topographic map of the terrain you conquered. Your trail. Your elevation. Your name and stats. Mounted in a clean, premium frame that belongs on your wall, not in a box.</p>
+
+        <p>We're not a factory. We're two guys with a printer, a workshop, and a genuine belief that your achievements deserve more than a notification. They deserve to be seen, touched, and talked about — not just once, but every time someone walks past your wall and asks, "what's that?"</p>
+
+        <p class="about-us-sign-off">That's Peak Framed. Your adventure. Printed.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== FOOTER ========== -->
   <footer style="border-top:1px solid rgba(196,149,106,0.1); padding:4rem 2.5rem 2rem; max-width:1200px; margin:0 auto;">
     <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
@@ -1409,8 +1522,8 @@
       <div>
         <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#c4956a; margin-bottom:1rem; font-weight:600;">More on Peak Framed</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
-          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">About Us</a></li>
-          <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">How It Works</a></li>
+          <li><a href="#about-us" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">About Us</a></li>
+          <li><a href="#how-it-works" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">How It Works</a></li>
           <li><a href="mailto:hello@peakframed.com.au" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">hello@peakframed.com.au</a></li>
           <li><a href="#" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">FAQ</a></li>
         </ul>
