@@ -401,6 +401,8 @@
     }
     .lightbox-prev { left: 2rem; }
     .lightbox-next { right: 2rem; }
+    .gallery-lightbox.single .lightbox-prev,
+    .gallery-lightbox.single .lightbox-next { display: none; }
     .lightbox-prev:hover,
     .lightbox-next:hover {
       background: rgba(196,149,106,0.15);
@@ -712,6 +714,136 @@
       outline: 2px solid #fff;
       outline-offset: 3px;
       border-radius: 6px;
+    }
+
+    /* Add-on selector grid */
+    .addon-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 1fr;
+      gap: 0.65rem;
+    }
+    .addon-btn {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.85rem 1rem;
+      height: 100%;
+      min-height: 88px;
+      text-align: left;
+      line-height: 1.3;
+      white-space: normal;
+    }
+    .addon-btn .addon-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: inherit;
+    }
+    .addon-btn .addon-sub {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.65;
+      letter-spacing: 0.01em;
+    }
+    .addon-btn .addon-price {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #c4956a;
+    }
+    .addon-btn.active .addon-price {
+      color: #ffffff;
+    }
+    .addon-btn.active .addon-sub {
+      color: #ffffff;
+      opacity: 0.85;
+    }
+    .addon-info {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,149,106,0.6);
+      background: rgba(10,17,24,0.4);
+      color: #c4956a;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      z-index: 2;
+    }
+    .addon-info:hover {
+      background: #c4956a;
+      color: #0a1118;
+      transform: scale(1.08);
+    }
+    .addon-btn.active .addon-info {
+      border-color: rgba(255,255,255,0.7);
+      color: #ffffff;
+    }
+    .addon-btn.active .addon-info:hover {
+      background: #ffffff;
+      color: #0a1118;
+    }
+    @media (max-width: 520px) {
+      .addon-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Collapsible order wrapper */
+    .order-toggle {
+      width: 100%;
+      padding: 1rem;
+      background: transparent;
+      border: 1px solid rgba(196,149,106,0.5);
+      border-radius: 6px;
+      color: #c4956a;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .order-toggle:hover {
+      background: rgba(196,149,106,0.08);
+      color: #e8d5c0;
+      border-color: #c4956a;
+    }
+    .order-toggle svg {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .order-collapse.open + .order-toggle svg,
+    .order-toggle.open svg {
+      transform: rotate(180deg);
+    }
+    .order-collapse {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, margin 0.4s ease;
+      margin-top: 0;
+    }
+    .order-collapse.open {
+      max-height: 5000px;
+      opacity: 1;
+      margin-top: 1.25rem;
     }
 
     .order-note {
@@ -1081,7 +1213,7 @@
   <header style="position:fixed; top:0; left:0; right:0; z-index:50; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(to bottom, rgba(10,17,24,0.8), transparent); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);">
     <!-- Logo -->
     <a href="#" style="display:flex; align-items:center; z-index:10;" aria-label="Peak Framed Home">
-      <img src="PeakFramedWhite.png" alt="Peak Framed" style="height:32px; width:auto;">
+      <img src="PeakFramedLandscapeWhite.png" alt="Peak Framed" style="height:56px; width:auto; display:block;">
     </a>
     <!-- Nav -->
     <nav style="display:flex; gap:2.5rem; position:absolute; left:50%; transform:translateX(-50%);">
@@ -1145,7 +1277,7 @@
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
           Connect your favorite activity apps — Strava, AllTrails, Garmin, and more. We pull in the GPS data from your hikes, runs, rides, and ski days to recreate the exact terrain and route you conquered.
         </p>
-        <a href="#about" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
+        <a href="#about-us" class="cta-btn" style="margin-top:1.75rem; position:relative; z-index:2;">
           About Us
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -1261,10 +1393,12 @@
     </div>
 
     <div class="product-section fade-up">
-      <!-- Left: Product image -->
+      <!-- Left: Product image (4 frame × tile combinations) -->
       <div class="product-image-wrap">
-        <img src="product/frame-black.jpg" alt="Adventure map in black frame" class="active" id="imgBlack">
-        <img src="product/frame-white.jpg" alt="Adventure map in white frame" id="imgWhite">
+        <img src="product/frame-black-tile-black.jpg" alt="Black frame · Black tile" class="active" id="imgBlackBlack" data-combo="black-black">
+        <img src="product/frame-black-tile-white.jpg" alt="Black frame · White tile"               id="imgBlackWhite" data-combo="black-white">
+        <img src="product/frame-white-tile-black.jpg" alt="White frame · Black tile"               id="imgWhiteBlack" data-combo="white-black">
+        <img src="product/frame-white-tile-white.jpg" alt="White frame · White tile"               id="imgWhiteWhite" data-combo="white-white">
       </div>
 
       <!-- Right: Controls & form -->
@@ -1285,12 +1419,33 @@
           </div>
         </div>
 
+        <!-- Tile colour selection -->
+        <div class="frame-selector">
+          <div class="frame-selector-title">Tile Colour</div>
+          <div class="frame-btns">
+            <button class="frame-btn active" data-tile="black" onclick="selectTile('black')">Black tile · White trail</button>
+            <button class="frame-btn" data-tile="white" onclick="selectTile('white')">White tile · Black trail</button>
+          </div>
+        </div>
+
+        <!-- Toggle to expand the order form -->
+        <button type="button" class="order-toggle" id="orderToggle" onclick="toggleOrderForm()" aria-expanded="false" aria-controls="orderCollapse">
+          <span id="orderToggleLabel">Start Your Order</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="order-collapse" id="orderCollapse">
+
         <!-- Order form -->
         <form class="order-form" id="orderForm" action="https://formsubmit.co/hello@peakframed.com.au" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="_subject" value="New Peak Framed Order">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="Frame Colour" id="frameColourInput" value="Black Frame">
+          <input type="hidden" name="Tile Colour" id="tileColourInput" value="Black tile · White trail">
+          <input type="hidden" name="Add-On" id="addonInput" value="Frame only">
+          <input type="hidden" name="Total Price" id="totalPriceInput" value="$149 AUD">
 
           <!-- GPS Route Data -->
           <div class="route-upload-section">
@@ -1400,12 +1555,39 @@
             </select>
           </div>
 
-          <button type="submit" class="order-btn">Order Now — $149 AUD</button>
+          <!-- Optional Add-Ons -->
+          <div class="frame-selector addon-selector" style="margin-top:0.5rem;">
+            <div class="frame-selector-title">Optional Add-On</div>
+            <div class="addon-grid">
+              <button type="button" class="frame-btn addon-btn active" data-addon="none" onclick="selectAddon('none')">
+                <span class="addon-label">Frame only</span>
+                <span class="addon-price">Included</span>
+              </button>
+              <button type="button" class="frame-btn addon-btn" data-addon="wall" onclick="selectAddon('wall')">
+                <span class="addon-info" onclick="event.stopPropagation(); openAddonImage('product/wall-mount.jpg', 'Wall mount system with 3M Command Strips')" aria-label="View wall mount photo">i</span>
+                <span class="addon-label">Wall mount system<br><span class="addon-sub">3M Command Strips</span></span>
+                <span class="addon-price">+$10</span>
+              </button>
+              <button type="button" class="frame-btn addon-btn" data-addon="stand" onclick="selectAddon('stand')">
+                <span class="addon-info" onclick="event.stopPropagation(); openAddonImage('product/desktop-stand.jpg', 'Desktop stand')" aria-label="View desktop stand photo">i</span>
+                <span class="addon-label">Desktop stand</span>
+                <span class="addon-price">+$10</span>
+              </button>
+              <button type="button" class="frame-btn addon-btn" data-addon="both" onclick="selectAddon('both')">
+                <span class="addon-info" onclick="event.stopPropagation(); openAddonImage('product/wall-mount-and-stand.jpg', 'Wall mount system + Desktop stand')" aria-label="View wall mount and stand photo">i</span>
+                <span class="addon-label">Wall mount system + Stand</span>
+                <span class="addon-price">+$16</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="order-btn" id="orderBtn">Order Now — $149 AUD</button>
 
           <p class="order-note">
             After placing your order, we'll send you a confirmation email. If we need any additional information or clarification about your adventure details, we'll reach out to you via email.
           </p>
         </form>
+        </div><!-- /.order-collapse -->
 
         <!-- Delivery info -->
         <div class="delivery-info">
@@ -1512,7 +1694,7 @@
     <div class="footer-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; margin-bottom:3rem;">
       <!-- Brand col -->
       <div>
-        <img src="PeakFramedWhite.png" alt="Peak Framed" style="height:56px; margin-bottom:1.25rem; opacity:0.8;">
+        <img src="PeakFramedLandscapeWhite.png" alt="Peak Framed" style="height:88px; width:auto; margin-bottom:1.25rem; opacity:0.85; display:block;">
         <p style="font-size:0.85rem; line-height:1.7; color:rgba(226,232,240,0.4); max-width:280px;">
           Transforming personal adventures into tangible, framed works of art through precision 3D printing.
         </p>
@@ -1558,13 +1740,24 @@
     function openLightbox(index) {
       currentIndex = index;
       lightboxImg.src = gallerySrcs[currentIndex];
+      lightbox.classList.remove('single');
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
     function closeLightbox() {
       lightbox.classList.remove('active');
+      lightbox.classList.remove('single');
       document.body.style.overflow = '';
     }
+    // Open a single standalone image (used by add-on info icons)
+    function openAddonImage(src, alt) {
+      lightboxImg.src = src;
+      if (alt) lightboxImg.alt = alt;
+      lightbox.classList.add('single');
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    window.openAddonImage = openAddonImage;
     function showPrev() {
       currentIndex = (currentIndex - 1 + gallerySrcs.length) % gallerySrcs.length;
       lightboxImg.src = gallerySrcs[currentIndex];
@@ -1641,13 +1834,61 @@
 
     sections.forEach(section => navObserver.observe(section));
 
-    // Frame selector
+    // Collapsible order form toggle
+    function toggleOrderForm() {
+      const wrap = document.getElementById('orderCollapse');
+      const btn = document.getElementById('orderToggle');
+      const label = document.getElementById('orderToggleLabel');
+      const isOpen = wrap.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      label.textContent = isOpen ? 'Hide Order Form' : 'Start Your Order';
+    }
+
+    // Frame + Tile state
+    let currentFrame = 'black';
+    let currentTile  = 'black';
+
+    function updateProductImage() {
+      const combo = `${currentFrame}-${currentTile}`;
+      document.querySelectorAll('.product-image-wrap img').forEach(img => {
+        img.classList.toggle('active', img.dataset.combo === combo);
+      });
+    }
+
     function selectFrame(color) {
-      document.querySelectorAll('.frame-btn').forEach(btn => btn.classList.remove('active'));
+      currentFrame = color;
+      document.querySelectorAll('.frame-btn[data-frame]').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`.frame-btn[data-frame="${color}"]`).classList.add('active');
-      document.getElementById('imgBlack').classList.toggle('active', color === 'black');
-      document.getElementById('imgWhite').classList.toggle('active', color === 'white');
       document.getElementById('frameColourInput').value = color === 'black' ? 'Black Frame' : 'White Frame';
+      updateProductImage();
+    }
+
+    function selectTile(color) {
+      currentTile = color;
+      document.querySelectorAll('.frame-btn[data-tile]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.frame-btn[data-tile="${color}"]`).classList.add('active');
+      document.getElementById('tileColourInput').value = color === 'black'
+        ? 'Black tile · White trail'
+        : 'White tile · Black trail';
+      updateProductImage();
+    }
+
+    // Add-on selector
+    const ADDON_LABELS = {
+      none:  { label: 'Frame only',                        extra: 0  },
+      wall:  { label: 'Wall mount system (3M Command Strips)', extra: 10 },
+      stand: { label: 'Desktop stand',                          extra: 10 },
+      both:  { label: 'Wall mount system + Desktop stand',      extra: 16 },
+    };
+    function selectAddon(key) {
+      document.querySelectorAll('.frame-btn[data-addon]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.frame-btn[data-addon="${key}"]`).classList.add('active');
+      const opt = ADDON_LABELS[key];
+      const total = 149 + opt.extra;
+      document.getElementById('addonInput').value = opt.label;
+      document.getElementById('totalPriceInput').value = `$${total} AUD`;
+      document.getElementById('orderBtn').textContent = `Order Now — $${total} AUD`;
     }
 
     // Route tab switching
