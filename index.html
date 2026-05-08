@@ -14,12 +14,12 @@
         extend: {
           colors: {
             peak: {
-              900: '#0a1118',
-              800: '#0f1a24',
-              700: '#162533',
-              600: '#1e3044',
-              accent: '#c4956a',
-              light: '#e8d5c0',
+              900: 'var(--color-bg)',
+              800: 'var(--color-surface-1)',
+              700: 'var(--color-surface-2)',
+              600: 'var(--color-surface-3)',
+              accent: 'var(--color-accent)',
+              light: 'var(--color-accent-light)',
             }
           },
           fontFamily: {
@@ -31,19 +31,60 @@
     }
   </script>
   <style>
+    /* =========================================================
+       Design tokens — single source of truth for the brand.
+       In a Shopify theme, these become theme settings (admin-editable).
+       Use semantic tokens (`--color-text`) over raw hex everywhere.
+       ========================================================= */
+    :root {
+      /* Surfaces (dark to less-dark) */
+      --color-bg:         #0a1118;
+      --color-surface-1:  #0f1a24;
+      --color-surface-2:  #162533;
+      --color-surface-3:  #1e3044;
+
+      /* Brand accent */
+      --color-accent:       #c4956a;
+      --color-accent-light: #e8d5c0;
+
+      /* Text */
+      --color-text:           #e2e8f0;
+      --color-text-secondary: rgba(226, 232, 240, 0.6);
+      --color-text-muted:     rgba(226, 232, 240, 0.4);
+
+      /* Neutrals */
+      --color-white: #ffffff;
+
+      /* Type */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+
+      /* Layout */
+      --container-max: 1200px;
+      --container-pad: 2.5rem;
+
+      /* Radii */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 12px;
+
+      /* Easing */
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-      background: #0a1118;
-      color: #e2e8f0;
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
       overflow-x: hidden;
     }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a1118; }
-    ::-webkit-scrollbar-thumb { background: #c4956a44; border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(196, 149, 106, 0.27); border-radius: 3px; }
 
     /* Hero */
     .hero-section {
@@ -75,7 +116,7 @@
 
     /* Section number watermark */
     .section-number {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(8rem, 15vw, 14rem);
       font-weight: 700;
       color: transparent;
@@ -99,7 +140,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.7s var(--ease-spring);
     }
     .content-image:hover img {
       transform: scale(1.03);
@@ -130,20 +171,20 @@
       letter-spacing: 0.15em;
       font-size: 0.75rem;
       font-weight: 600;
-      color: #c4956a;
+      color: var(--color-accent);
     }
     .label-line::before {
       content: '';
       display: block;
       width: 40px;
       height: 1px;
-      background: var(--line-color, #c4956a);
+      background: var(--line-color, var(--color-accent));
     }
 
     /* Nav link hover */
     .nav-link {
       position: relative;
-      color: #e2e8f0;
+      color: var(--color-text);
       text-decoration: none;
       font-size: 0.875rem;
       letter-spacing: 0.04em;
@@ -156,13 +197,13 @@
       left: 0;
       width: 0;
       height: 1px;
-      background: #c4956a;
+      background: var(--color-accent);
       transition: width 0.3s ease;
     }
-    .nav-link:hover { color: #c4956a; }
+    .nav-link:hover { color: var(--color-accent); }
     .nav-link:hover::after { width: 100%; }
     .nav-link:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 4px;
       border-radius: 2px;
     }
@@ -173,22 +214,22 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: #c4956a;
+      color: var(--color-accent);
       font-size: 0.875rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-decoration: none;
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+      transition: transform 0.3s var(--ease-spring), color 0.3s ease;
     }
-    .cta-btn:hover { color: #e8d5c0; transform: translateX(4px); }
+    .cta-btn:hover { color: var(--color-accent-light); transform: translateX(4px); }
     .cta-btn:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 4px;
       border-radius: 2px;
     }
     .cta-btn:active { opacity: 0.8; }
     .cta-btn svg {
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.3s var(--ease-spring);
     }
     .cta-btn:hover svg { transform: translateX(3px); }
 
@@ -235,7 +276,7 @@
       transform: scale(1.15);
     }
     .social-links a:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 4px;
       border-radius: 2px;
     }
@@ -279,7 +320,7 @@
     }
     .vertical-nav a:hover { color: rgba(255,255,255,0.7); }
     .vertical-nav a:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 4px;
       border-radius: 2px;
     }
@@ -305,14 +346,14 @@
       cursor: pointer;
       break-inside: avoid;
       margin-bottom: 14px;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-spring);
     }
     .gallery-item:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 8px 16px rgba(196,149,106,0.08);
     }
     .gallery-item:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 3px;
       border-radius: 6px;
     }
@@ -323,7 +364,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.6s var(--ease-spring);
     }
     .gallery-item:hover img {
       transform: scale(1.04);
@@ -351,7 +392,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.35s var(--ease-spring);
     }
     .gallery-lightbox.active {
       opacity: 1;
@@ -363,7 +404,7 @@
       object-fit: contain;
       border-radius: 4px;
       transform: scale(0.92);
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.4s var(--ease-spring);
     }
     .gallery-lightbox.active .lightbox-img {
       transform: scale(1);
@@ -381,7 +422,7 @@
       line-height: 1;
     }
     .lightbox-close:hover { color: #fff; transform: scale(1.15); }
-    .lightbox-close:focus-visible { outline: 2px solid #c4956a; outline-offset: 4px; border-radius: 2px; }
+    .lightbox-close:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: 2px; }
     .lightbox-prev,
     .lightbox-next {
       position: absolute;
@@ -410,7 +451,7 @@
     }
     .lightbox-prev:focus-visible,
     .lightbox-next:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 4px;
     }
     .lightbox-prev:active,
@@ -427,7 +468,7 @@
       position: relative;
       border-radius: 6px;
       overflow: hidden;
-      background: #0f1a24;
+      background: var(--color-surface-1);
       aspect-ratio: 1;
     }
     .product-image-wrap img {
@@ -437,12 +478,12 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.5s var(--ease-spring);
     }
     .product-image-wrap img.active { opacity: 1; }
 
     .product-right h2 {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 600;
       line-height: 1.15;
@@ -456,7 +497,7 @@
       line-height: 1.6;
     }
     .product-price {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: 1.6rem;
       font-weight: 600;
       color: #fff;
@@ -501,15 +542,15 @@
     }
     .frame-btn:hover {
       border-color: rgba(196,149,106,0.4);
-      color: #e2e8f0;
+      color: var(--color-text);
     }
     .frame-btn.active {
-      border-color: #c4956a;
+      border-color: var(--color-accent);
       color: #fff;
       background: rgba(196,149,106,0.1);
     }
     .frame-btn:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 2px;
       border-radius: 6px;
     }
@@ -540,7 +581,7 @@
       border-radius: 6px;
       padding: 0.7rem 0.9rem;
       font-size: 0.88rem;
-      color: #e2e8f0;
+      color: var(--color-text);
       font-family: inherit;
       transition: border-color 0.3s ease;
       width: 100%;
@@ -557,7 +598,7 @@
     .order-field input:focus,
     .order-field select:focus {
       outline: none;
-      border-color: #c4956a;
+      border-color: var(--color-accent);
     }
     .order-field-row {
       display: grid;
@@ -572,8 +613,8 @@
       padding-right: 2.5rem;
     }
     .order-field select option {
-      background: #0f1a24;
-      color: #e2e8f0;
+      background: var(--color-surface-1);
+      color: var(--color-text);
     }
 
     /* Route upload section */
@@ -590,7 +631,7 @@
       gap: 0.5rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #e2e8f0;
+      color: var(--color-text);
       margin-bottom: 0.4rem;
     }
     .route-upload-desc {
@@ -622,15 +663,15 @@
     }
     .route-tab:hover {
       border-color: rgba(196,149,106,0.4);
-      color: #e2e8f0;
+      color: var(--color-text);
     }
     .route-tab.active {
-      border-color: #c4956a;
+      border-color: var(--color-accent);
       color: #fff;
       background: rgba(196,149,106,0.1);
     }
     .route-tab:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 2px;
       border-radius: 6px;
     }
@@ -664,7 +705,7 @@
       background: rgba(196,149,106,0.04);
     }
     .file-upload-zone.drag-over {
-      border-color: #c4956a;
+      border-color: var(--color-accent);
       background: rgba(196,149,106,0.08);
     }
     .file-upload-zone.has-file {
@@ -682,7 +723,7 @@
     }
     .file-name-display {
       font-size: 0.75rem;
-      color: #c4956a;
+      color: var(--color-accent);
       margin-top: 0.4rem;
       display: block;
       min-height: 1rem;
@@ -692,15 +733,15 @@
     .order-btn {
       width: 100%;
       padding: 1rem;
-      background: #c4956a;
+      background: var(--color-accent);
       border: none;
       border-radius: 6px;
-      color: #0a1118;
+      color: var(--color-bg);
       font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: background 0.3s ease, transform 0.3s var(--ease-spring);
       margin-top: 0.5rem;
     }
     .order-btn:hover {
@@ -755,7 +796,7 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #c4956a;
+      color: var(--color-accent);
     }
     .addon-btn.active .addon-price {
       color: #ffffff;
@@ -773,7 +814,7 @@
       border-radius: 50%;
       border: 1px solid rgba(196,149,106,0.6);
       background: rgba(10,17,24,0.4);
-      color: #c4956a;
+      color: var(--color-accent);
       font-family: Georgia, serif;
       font-style: italic;
       font-size: 12px;
@@ -785,8 +826,8 @@
       z-index: 2;
     }
     .addon-info:hover {
-      background: #c4956a;
-      color: #0a1118;
+      background: var(--color-accent);
+      color: var(--color-bg);
       transform: scale(1.08);
     }
     .addon-btn.active .addon-info {
@@ -795,7 +836,7 @@
     }
     .addon-btn.active .addon-info:hover {
       background: #ffffff;
-      color: #0a1118;
+      color: var(--color-bg);
     }
     @media (max-width: 520px) {
       .addon-grid { grid-template-columns: 1fr; }
@@ -808,7 +849,7 @@
       background: transparent;
       border: 1px solid rgba(196,149,106,0.5);
       border-radius: 6px;
-      color: #c4956a;
+      color: var(--color-accent);
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.08em;
@@ -823,11 +864,11 @@
     }
     .order-toggle:hover {
       background: rgba(196,149,106,0.08);
-      color: #e8d5c0;
-      border-color: #c4956a;
+      color: var(--color-accent-light);
+      border-color: var(--color-accent);
     }
     .order-toggle svg {
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.35s var(--ease-spring);
     }
     .order-collapse.open + .order-toggle svg,
     .order-toggle.open svg {
@@ -837,7 +878,7 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, margin 0.4s ease;
+      transition: max-height 0.5s var(--ease-spring), opacity 0.4s ease, margin 0.4s ease;
       margin-top: 0;
     }
     .order-collapse.open {
@@ -870,7 +911,7 @@
     .delivery-option svg {
       flex-shrink: 0;
       margin-top: 2px;
-      color: #c4956a;
+      color: var(--color-accent);
     }
     .delivery-option-title {
       font-size: 0.82rem;
@@ -901,13 +942,13 @@
       border: none;
       width: 100%;
       text-align: left;
-      color: #e2e8f0;
+      color: var(--color-text);
       font-size: 0.88rem;
       font-weight: 600;
     }
-    .product-accordion-header:hover { color: #c4956a; }
+    .product-accordion-header:hover { color: var(--color-accent); }
     .product-accordion-header:focus-visible {
-      outline: 2px solid #c4956a;
+      outline: 2px solid var(--color-accent);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -922,7 +963,7 @@
     .product-accordion-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: max-height 0.4s var(--ease-spring);
     }
     .product-accordion-item.open .product-accordion-body {
       max-height: 500px;
@@ -938,7 +979,7 @@
     .fade-up {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.8s var(--ease-spring), transform 0.8s var(--ease-spring);
     }
     .fade-up.visible {
       opacity: 1;
@@ -960,7 +1001,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: #e2e8f0;
+      background: var(--color-text);
       border-radius: 1px;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
@@ -981,14 +1022,14 @@
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: 1.5rem;
-      color: #e2e8f0;
+      color: var(--color-text);
       text-decoration: none;
       transition: color 0.3s ease;
     }
-    .mobile-nav a:hover { color: #c4956a; }
-    .mobile-nav a:focus-visible { outline: 2px solid #c4956a; outline-offset: 4px; border-radius: 2px; }
+    .mobile-nav a:hover { color: var(--color-accent); }
+    .mobile-nav a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: 2px; }
     .mobile-nav a:active { opacity: 0.8; }
 
     /* Responsive */
@@ -1127,24 +1168,24 @@
       color: rgba(226,232,240,0.6);
     }
     .about-us-lead {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: 1.3rem !important;
       font-weight: 500;
       line-height: 1.5 !important;
-      color: #e2e8f0 !important;
+      color: var(--color-text) !important;
       font-style: italic;
     }
     .about-us-highlight {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: 1.15rem !important;
       font-weight: 600;
-      color: #c4956a !important;
+      color: var(--color-accent) !important;
     }
     .about-us-sign-off {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: var(--font-display);
       font-size: 1.1rem !important;
       font-weight: 500;
-      color: #e8d5c0 !important;
+      color: var(--color-accent-light) !important;
       font-style: italic;
       margin-top: 0.5rem;
       padding-top: 1.5rem;
@@ -1245,7 +1286,7 @@
     <!-- Left-aligned hero content like MNTN -->
     <div class="hero-content" style="position:relative; z-index:10; flex:1; display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-start; text-align:left; padding:0 2.5rem; padding-top:14vh; padding-left:5rem;">
       <p class="label-line" style="margin-bottom:1.5rem; color:#fff; --line-color:#fff;">Your Adventure. Framed.</p>
-      <h1 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:600; line-height:1.1; letter-spacing:-0.03em; color:#fff; max-width:700px;">
+      <h1 style="font-family:var(--font-display); font-size:clamp(2.5rem,5.5vw,4.5rem); font-weight:600; line-height:1.1; letter-spacing:-0.03em; color:#fff; max-width:700px;">
         Turn Your Adventures<br>Into Timeless Art
       </h1>
       <p class="body-text" style="margin-top:1.5rem; font-size:1.05rem; line-height:1.7; color:rgba(255,255,255,0.85); max-width:480px; text-shadow:0 1px 8px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.3);">
@@ -1271,7 +1312,7 @@
       <div class="fade-up section-text" style="position:relative;">
         <span class="section-number" style="right:-1rem; left:auto;">01</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Connect Your App</p>
-        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+        <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Sync Your<br>Adventures
         </h2>
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
@@ -1300,7 +1341,7 @@
       <div class="fade-up section-text" style="position:relative; transition-delay:0.15s;">
         <span class="section-number" style="right:-1rem; left:auto;">02</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">3D Printed Terrain</p>
-        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+        <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Crafted With<br>Precision
         </h2>
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
@@ -1321,7 +1362,7 @@
       <div class="fade-up section-text" style="position:relative;">
         <span class="section-number" style="right:-1rem; left:auto;">03</span>
         <p class="label-line" style="margin-bottom:1.25rem; position:relative; z-index:2;">Framed & Delivered</p>
-        <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
+        <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff; position:relative; z-index:2;">
           Your Memory,<br>On Display
         </h2>
         <p style="margin-top:1.25rem; font-size:0.95rem; line-height:1.7; color:rgba(226,232,240,0.6); max-width:400px; position:relative; z-index:2;">
@@ -1343,7 +1384,7 @@
   <section id="our-work" style="position:relative; padding:6rem 2.5rem 4rem; max-width:1200px; margin:0 auto;">
     <div class="fade-up" style="margin-bottom:3rem;">
       <p class="label-line" style="margin-bottom:1.25rem;">Our Work</p>
-      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+      <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
         Gallery
       </h2>
     </div>
@@ -1383,11 +1424,11 @@
   </div>
 
   <!-- ========== ORDER / PRODUCT ========== -->
-  <section id="get-started" style="position:relative; padding:6rem 0 4rem; background: linear-gradient(170deg, #0f1a24 0%, #162533 40%, #1a2d3f 70%, #0f1a24 100%);">
+  <section id="get-started" style="position:relative; padding:6rem 0 4rem; background: linear-gradient(170deg, var(--color-surface-1) 0%, var(--color-surface-2) 40%, #1a2d3f 70%, var(--color-surface-1) 100%);">
     <div style="max-width:1200px; margin:0 auto; padding:0 2.5rem;">
     <div class="fade-up" style="margin-bottom:3rem;">
       <p class="label-line" style="margin-bottom:1.25rem;">Order Yours</p>
-      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+      <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
         Get Your Adventure Printed
       </h2>
     </div>
@@ -1407,7 +1448,7 @@
         <p class="product-subtitle">Your accomplishment, beautifully 3D-printed in stunning detail and professionally framed.</p>
 
         <div class="product-price">
-          $149 <span class="price-note">AUD · Delivery included</span>
+          $169 <span class="price-note">AUD · Delivery included</span>
         </div>
 
         <!-- Frame selection -->
@@ -1445,12 +1486,12 @@
           <input type="hidden" name="Frame Colour" id="frameColourInput" value="Black Frame">
           <input type="hidden" name="Tile Colour" id="tileColourInput" value="Black tile · White trail">
           <input type="hidden" name="Add-On" id="addonInput" value="Frame only">
-          <input type="hidden" name="Total Price" id="totalPriceInput" value="$149 AUD">
+          <input type="hidden" name="Total Price" id="totalPriceInput" value="$169 AUD">
 
           <!-- GPS Route Data -->
           <div class="route-upload-section">
             <div class="route-upload-header">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c4956a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <span>Your Route Data</span>
             </div>
             <p class="route-upload-desc">Share your adventure with us using any of the options below. We'll use this to create your 3D map.</p>
@@ -1581,7 +1622,7 @@
             </div>
           </div>
 
-          <button type="submit" class="order-btn" id="orderBtn">Order Now — $149 AUD</button>
+          <button type="submit" class="order-btn" id="orderBtn">Order Now — $169 AUD</button>
 
           <p class="order-note">
             After placing your order, we'll send you a confirmation email. If we need any additional information or clarification about your adventure details, we'll reach out to you via email.
@@ -1642,7 +1683,7 @@
             </button>
             <div class="product-accordion-body">
               <div class="product-accordion-content">
-                Details coming soon — check back or contact us at <a href="mailto:hello@peakframed.com.au" style="color:#c4956a;">hello@peakframed.com.au</a>
+                Details coming soon — check back or contact us at <a href="mailto:hello@peakframed.com.au" style="color:var(--color-accent);">hello@peakframed.com.au</a>
               </div>
             </div>
           </div>
@@ -1656,7 +1697,7 @@
   <section id="about-us" style="position:relative; padding:6rem 2.5rem; max-width:1200px; margin:0 auto;">
     <div class="fade-up" style="margin-bottom:3rem;">
       <p class="label-line" style="margin-bottom:1.25rem;">Who We Are</p>
-      <h2 style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
+      <h2 style="font-family:var(--font-display); font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; line-height:1.15; letter-spacing:-0.02em; color:#fff;">
         About Us
       </h2>
     </div>
@@ -1702,7 +1743,7 @@
       </div>
       <!-- Links col -->
       <div>
-        <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:#c4956a; margin-bottom:1rem; font-weight:600;">More on Peak Framed</h4>
+        <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--color-accent); margin-bottom:1rem; font-weight:600;">More on Peak Framed</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
           <li><a href="#about-us" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">About Us</a></li>
           <li><a href="#how-it-works" class="nav-link" style="font-size:0.85rem; color:rgba(226,232,240,0.5);">How It Works</a></li>
@@ -1885,7 +1926,7 @@
       document.querySelectorAll('.frame-btn[data-addon]').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`.frame-btn[data-addon="${key}"]`).classList.add('active');
       const opt = ADDON_LABELS[key];
-      const total = 149 + opt.extra;
+      const total = 169 + opt.extra;
       document.getElementById('addonInput').value = opt.label;
       document.getElementById('totalPriceInput').value = `$${total} AUD`;
       document.getElementById('orderBtn').textContent = `Order Now — $${total} AUD`;
