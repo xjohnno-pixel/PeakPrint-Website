@@ -15,13 +15,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Deployment Stack
 - **Development:** Single `index.html` with inline styles, served locally for preview
 - **Staging:** GitHub (github.com/xjohnno-pixel/PeakPrint-Website) → auto-deploys to Vercel (peakprint-website.vercel.app)
-- **Production (final):** Shopify — the site will ultimately be ported to Shopify
+- **Production:** Shopify — `peakframed.myshopify.com` (Basic plan), custom domain `peakframed.com.au`
+- **Live theme** on Shopify: **Horizon** (Shopify default — placeholder until our theme is ready)
+- **Custom theme**: `peakframed-dev` (theme ID `130267775040`), currently **unpublished/Draft**. Edits are pushed via `shopify theme push --theme 130267775040 --store peakframed.myshopify.com --nodelete` from the `shopify/` directory.
+- **Storefront state**: **password-protected** while the product page is being built. Public domain shows splash, not the store.
+- **Product**: "Adventure Map" with 4 variants (frame×tile combinations) — currently in **DRAFT** status; inventory tracking is **off** (always in stock).
 - **Shopify stack:** Liquid templating language (`.liquid` files), Shopify's theme architecture (sections, snippets, templates, assets)
 - When preparing for Shopify migration: keep HTML semantic and modular, use CSS custom properties for theming, avoid JS frameworks — vanilla JS only. This makes the Liquid conversion straightforward.
 - Shopify-specific notes: forms will be replaced by Shopify's cart/checkout system, product data will come from Shopify's product objects (`{{ product.title }}`, `{{ product.price | money }}`), images will use Shopify's CDN (`{{ image | img_url: 'master' }}`)
 
-### File uploads in Shopify (decided)
-Do **not** use a Shopify file-upload app (Uploadery, Easy File Upload, etc.) — they replace the existing drag-and-drop UI with a plainer widget and add a monthly fee. Instead, **port the existing custom drag-and-drop UI into the Liquid product template and upload files directly from the browser to Cloudinary** (or Uploadcare) using an unsigned upload preset.
+### File uploads in Shopify (decided & configured)
+Do **not** use a Shopify file-upload app (Uploadery, Easy File Upload, etc.) — they replace the existing drag-and-drop UI with a plainer widget and add a monthly fee. Instead, **port the existing custom drag-and-drop UI into the Liquid product template and upload files directly from the browser to Cloudinary** using an unsigned upload preset.
+
+**Configured values** (pre-populated in `shopify/config/settings_data.json`):
+- Cloudinary cloud name: `dhz0lhqcf`
+- Unsigned upload preset: `peakframed_orders_unsigned`
+- Target folder: `peakframed/orders/`
+- Allowed formats (enforced client-side in JS, not in the preset): `gpx, kml, fit, tcx, jpg, jpeg, png, heic`
+- Max file size (enforced client-side): 25 MB
+
+**Why client-side validation instead of preset-level:** Cloudinary's redesigned UI no longer exposes `allowed_formats` or `max_file_size` for unsigned presets. We enforce both in the upload widget JS — same protection, plus better UX (instant error feedback before bandwidth is wasted on an over-sized upload).
 
 Flow:
 1. Customer drops a `.gpx` / `.kml` / `.fit` / `.tcx` / image into the existing UI
@@ -33,6 +46,18 @@ Flow:
 Why: keeps the full UX we already built, $0 at our scale (free tier is 25 GB / 25 GB bandwidth), no vendor lock to a Shopify app, and Cloudinary webhooks can later auto-pipe files into Drive/CRM without Zapier.
 
 Lockdown notes for the Cloudinary preset: restrict allowed formats, set a max file size (e.g. 25 MB), pin to a single folder, and rotate the preset name if it ever leaks.
+
+### Local pickup — Melbourne only (Shopify migration to-do)
+Collection in person is restricted to the **Melbourne metropolitan area**, served by two pickup points:
+- **Port Melbourne** (inner-west)
+- **Knoxfield** (outer-east)
+
+The current static site enforces this only with a helper line under the Delivery Method dropdown — a customer in any other city can still tick "Collect in person" and submit the order. At Shopify migration time:
+
+1. **Configure Shopify Local pickup** with two separate pickup locations (Port Melbourne and Knoxfield) under Settings → Shipping and delivery → Local pickup. Each location has its own pickup instructions and address. Shopify lets the customer choose between them at checkout if both are eligible based on their postcode.
+2. **Postcode-gate the "Local pickup" option** so it's only offered when the customer's shipping postcode falls within Greater Melbourne. This is a much stronger guard than the current free-text dropdown.
+3. **Update the order-confirmation email template** so that when a customer selects local pickup, the Melbourne-only note is repeated and they are told the exact pickup address / time will follow in a separate email. This catches anyone who slips through the postcode gate.
+4. If pickup later expands (e.g. a third location, or a partner store interstate), update the Shopify Local pickup list **and** both legal docs (`legal/shipping-and-returns.md` § Collect in person, `legal/terms-of-service.md` § 7).
 
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
@@ -163,3 +188,35 @@ The `tailwind.config = {...}` block at the top of `index.html` references the CS
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
 - Always get user approval before pushing to GitHub/Vercel
+
+## Legal Documents (`legal/` folder)
+Drafts of Privacy Policy, Terms of Service, and Shipping & Returns Policy live as markdown in `legal/`. **Not yet legally reviewed** — banner at the top of each says so. Not deployed as live pages; intended to be pasted into Shopify admin (Settings → Policies) at migration time, after a lawyer review.
+
+### Confirmed business decisions baked into the policies (single source of truth)
+- **Governing law:** Victoria, Australia
+- **GST:** not currently registered (turnover under $75k threshold). Prices are GST-exclusive but priced as if inclusive ($169) so registering later doesn't require a customer-facing price bump.
+- **Privacy Act (AU):** turnover under $3M/yr → exempt from most Australian Privacy Principles. Our Privacy Policy is **voluntary best practice**, not a legal requirement at this scale. Reasons we still publish a full one: (a) good practice / customer trust, (b) Shopify handles a lot of personal data on our behalf, (c) the $3M small-business exemption may be removed in upcoming Privacy Act reforms. **Australian Consumer Law** (covered in T&Cs / Shipping & Returns) is the real risk surface — that doc is the one to keep tight.
+- **Payment processor:** Wise + Shopify Payments (+ wallet methods)
+- **Shipping carrier:** Australia Post (3–7 business days after dispatch)
+- **File hosting:** Cloudinary (when Shopify migration happens)
+- **Email:** CheaperDomains hosts the `hello@` mailbox
+- **Analytics:** Shopify Analytics
+- **Data retention:** 7 years (ATO record-keeping)
+- **Lost-parcel window:** 20 business days from dispatch
+- **Damaged-in-transit window:** 5 business days from delivery — **photos only, no return required**
+- **Bulk orders:** customers must contact for >10 maps in one transaction
+- **Gift orders:** discouraged; recommend gift cards instead. Gift cards are sold at a **single fixed denomination of $169 AUD** — exactly one standard framed map. No partial-value or custom-amount gift cards. Add-ons (wall mount system, stand) are covered by the recipient at checkout if they want them, or by gifting a second card. Brand message: "give a frame, not a fraction."
+- **Abandoned-cart emails:** opt-in only, via Shopify; covered in Privacy Policy § 4a
+
+Update these decisions in the markdown files first, then regenerate PDFs (see below).
+
+### PDF build pipeline
+`legal/_build_pdfs.py` converts each `.md` → branded A4 PDF using the system Python `markdown` library and Chrome headless (no other dependencies). Outputs four files:
+- One PDF per policy (for individual reference)
+- `peakframed-legal-pack.pdf` — combined cover + TOC + all three docs (this is the one to email lawyers/Keegan)
+
+Run from project root:
+```
+python3 legal/_build_pdfs.py
+```
+PDFs are gitignored-by-convention (kept local, not committed) since they regenerate from the markdown source.
