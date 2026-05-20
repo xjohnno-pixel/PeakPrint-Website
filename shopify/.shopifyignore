@@ -1,0 +1,4 @@
+# Files in this directory but not part of the theme
+README.md
+.shopifyignore
+.gitignore

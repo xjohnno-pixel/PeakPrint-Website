@@ -1,0 +1,100 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "label": "Your Adventure. Framed.",
+        "headline": "<p>Turn Your Adventures<br>Into Timeless Art</p>",
+        "body": "We transform your GPS adventures from Strava, AllTrails, and more into stunning 3D-printed framed maps you can hang on your wall.",
+        "cta_label": "Discover How",
+        "cta_link": "#how-it-works",
+        "show_scroll_cue": true
+      }
+    },
+    "how-it-works": {
+      "type": "how-it-works",
+      "settings": {
+        "number": "01",
+        "label": "Connect Your App",
+        "headline": "<p>Sync Your<br>Adventures</p>",
+        "body": "Connect your favorite activity apps — Strava, AllTrails, Garmin, and more. We pull in the GPS data from your hikes, runs, rides, and ski days to recreate the exact terrain and route you conquered.",
+        "cta_label": "About Us",
+        "cta_link": "#about-us"
+      }
+    },
+    "about": {
+      "type": "about",
+      "settings": {
+        "number": "02",
+        "label": "3D Printed Terrain",
+        "headline": "<p>Crafted With<br>Precision</p>",
+        "body": "Using high-resolution elevation data, we 3D print the actual terrain of your route — every ridge, valley, and switchback. Your adventure is highlighted across the landscape, turning raw GPS data into a tactile, topographic masterpiece.",
+        "cta_label": "See Our Creations",
+        "cta_link": "#our-work"
+      }
+    },
+    "gallery-teaser": {
+      "type": "gallery-teaser",
+      "settings": {
+        "number": "03",
+        "label": "Framed & Delivered",
+        "headline": "<p>Your Memory,<br>On Display</p>",
+        "body": "Each piece is professionally framed and ready to hang. Whether it's a summit hike, a century ride, a powder day, or a travel route — your personal achievement becomes a conversation piece and a lasting memory on your wall.",
+        "cta_label": "Start Your Order",
+        "cta_link": "#get-started"
+      }
+    },
+    "our-work": {
+      "type": "our-work",
+      "blocks": {
+        "g1":  { "type": "image" },
+        "g2":  { "type": "image" },
+        "g3":  { "type": "image" },
+        "g4":  { "type": "image" },
+        "g5":  { "type": "image" },
+        "g6":  { "type": "image" },
+        "g7":  { "type": "image" },
+        "g8":  { "type": "image" },
+        "g9":  { "type": "image" },
+        "g10": { "type": "image" },
+        "g11": { "type": "image" }
+      },
+      "block_order": ["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11"],
+      "settings": {
+        "label": "Our Work",
+        "headline": "Gallery",
+        "back_to_top_label": "Back to Top",
+        "back_to_top_link": "#hero"
+      }
+    },
+    "product-order": {
+      "type": "product-order",
+      "settings": {
+        "label": "Order Yours",
+        "headline": "Get Your Adventure Printed",
+        "product_title": "Bring Your Journey to Life",
+        "product_subtitle": "Your accomplishment, beautifully 3D-printed in stunning detail and professionally framed.",
+        "product_handle": "adventure-map",
+        "addon_wall_variant_id": "41120384778304",
+        "addon_stand_variant_id": "41120384811072",
+        "addon_both_variant_id": "41120384843840"
+      }
+    },
+    "about-us": {
+      "type": "about-us",
+      "settings": {
+        "label": "Who We Are",
+        "headline": "About Us"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "how-it-works",
+    "about",
+    "gallery-teaser",
+    "our-work",
+    "product-order",
+    "about-us"
+  ]
+}

@@ -1,0 +1,53 @@
+{%- comment -%}
+  Section 03 — "Framed & Delivered". Text left, image right.
+  Ported from ../index.html lines 1359–1381.
+{%- endcomment -%}
+
+<section id="gallery" class="section-wrap section-wrap--bottom">
+  <div class="section-grid">
+    <div class="fade-up section-text">
+      <span class="section-number section-number--right">{{ section.settings.number | default: '03' }}</span>
+      {%- if section.settings.label != blank -%}
+        <p class="label-line section-eyebrow">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.headline != blank -%}
+        <h2 class="section-headline">{{ section.settings.headline }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <p class="section-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="cta-btn section-cta">
+          {{ section.settings.cta_label }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="fade-up content-image section-image section-image--delay">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag:
+           alt: section.settings.image.alt | default: section.settings.headline,
+           widths: '600,900,1200',
+           sizes: '(min-width: 768px) 50vw, 100vw',
+           loading: 'lazy' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section 03 — Delivered",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "03" },
+    { "type": "text", "id": "label", "label": "Eyebrow label", "default": "Framed & Delivered" },
+    { "type": "richtext", "id": "headline", "label": "Headline", "default": "<p>Your Memory,<br>On Display</p>" },
+    { "type": "textarea", "id": "body", "label": "Body copy", "default": "Each piece is professionally framed and ready to hang. Whether it's a summit hike, a century ride, a powder day, or a travel route — your personal achievement becomes a conversation piece and a lasting memory on your wall." },
+    { "type": "image_picker", "id": "image", "label": "Side image" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start Your Order" },
+    { "type": "text", "id": "cta_link", "label": "CTA link", "default": "#get-started" }
+  ],
+  "presets": [{ "name": "Section 03 — Delivered" }]
+}
+{% endschema %}

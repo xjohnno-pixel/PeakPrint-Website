@@ -1,0 +1,88 @@
+{%- comment -%}
+  Peak Framed footer — brand column + links column + bottom row.
+  Ported from ../index.html lines 1734–1760.
+{%- endcomment -%}
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <!-- Brand column -->
+    <div class="footer-brand">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 600 | image_tag: alt: shop.name, widths: '300,600', class: 'footer-logo' }}
+      {%- endif -%}
+      <p class="footer-tagline">{{ section.settings.tagline | default: 'Transforming personal adventures into tangible, framed works of art through precision 3D printing.' }}</p>
+      {%- if section.settings.abn != blank -%}
+        <p class="footer-abn">ABN: {{ section.settings.abn }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- Links column -->
+    <div class="footer-links">
+      <h4>{{ section.settings.links_heading | default: 'More on Peak Framed' }}</h4>
+      <ul>
+        {%- for link in section.settings.menu.links -%}
+          <li><a href="{{ link.url }}" class="nav-link">{{ link.title }}</a></li>
+        {%- endfor -%}
+        {%- if section.settings.contact_email != blank -%}
+          <li><a href="mailto:{{ section.settings.contact_email }}" class="nav-link">{{ section.settings.contact_email }}</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <p>{{ section.settings.slogan | default: 'Your Adventure. Framed.' }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo (landscape, white, transparent)",
+      "info": "Larger than the header — recommended ~88px tall."
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Brand tagline",
+      "default": "Transforming personal adventures into tangible, framed works of art through precision 3D printing."
+    },
+    {
+      "type": "text",
+      "id": "abn",
+      "label": "ABN",
+      "default": "23 937 267 604"
+    },
+    {
+      "type": "text",
+      "id": "links_heading",
+      "label": "Links column heading",
+      "default": "More on Peak Framed"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer navigation menu",
+      "default": "footer",
+      "info": "Configure links in Shopify admin → Navigation."
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email (appears as a link in the menu)",
+      "default": "hello@peakframed.com.au"
+    },
+    {
+      "type": "text",
+      "id": "slogan",
+      "label": "Slogan (right side of footer bottom)",
+      "default": "Your Adventure. Framed."
+    }
+  ]
+}
+{% endschema %}

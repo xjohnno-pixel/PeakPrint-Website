@@ -1,0 +1,99 @@
+{%- comment -%}
+  Peak Framed header — fixed top bar with logo + nav, plus the right-side
+  vertical section nav and the left-side Instagram link. Ported from
+  ../index.html lines 1212–1278.
+{%- endcomment -%}
+
+<!-- Grain texture overlay -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Social links (left rail) -->
+<div class="social-links" aria-hidden="false">
+  {%- if section.settings.instagram_url != blank -%}
+    <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    </a>
+  {%- endif -%}
+</div>
+
+<!-- Vertical section nav (right rail) — homepage anchors only -->
+{%- if template == 'index' -%}
+  <div class="vertical-nav">
+    <a href="#hero" class="active" data-section="hero">Start</a>
+    <div class="nav-line"></div>
+    <a href="#how-it-works" data-section="how-it-works">01</a>
+    <div class="nav-line"></div>
+    <a href="#about" data-section="about">02</a>
+    <div class="nav-line"></div>
+    <a href="#gallery" data-section="gallery">03</a>
+    <div class="nav-line"></div>
+    <a href="#our-work" data-section="our-work">Our Work</a>
+    <div class="nav-line"></div>
+    <a href="#get-started" data-section="get-started">Order Yours</a>
+    <div class="nav-line"></div>
+    <a href="#about-us" data-section="about-us">Who We Are</a>
+  </div>
+{%- endif -%}
+
+<!-- Header bar -->
+<header class="site-header">
+  <!-- Logo -->
+  <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }} Home">
+    {%- if section.settings.logo != blank -%}
+      {{ section.settings.logo | image_url: width: 600 | image_tag: alt: shop.name, widths: '200,400,600', loading: 'eager' }}
+    {%- else -%}
+      <span style="font-family: var(--font-display); color: var(--color-white); font-size: 1.5rem;">{{ shop.name }}</span>
+    {%- endif -%}
+  </a>
+
+  <!-- Desktop nav -->
+  <nav class="site-header__nav" aria-label="Primary">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}" class="nav-link{% if link.active %} active{% endif %}">{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+
+  <!-- Mobile menu button -->
+  <button class="mobile-menu-btn" data-mobile-menu-toggle aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav" id="mobile-nav">
+  {%- for link in section.settings.menu.links -%}
+    <a href="{{ link.url }}" data-mobile-menu-link>{{ link.title }}</a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (landscape, white, transparent PNG)",
+      "info": "Recommended height: 56px on desktop. Upload the landscape variant of the wordmark."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Primary navigation menu",
+      "default": "main-menu",
+      "info": "Configure links in Shopify admin → Navigation."
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://www.instagram.com/peakframed",
+      "info": "Full URL — e.g. https://www.instagram.com/peakframed"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+{%- comment -%}
+  Our Work — full masonry gallery + shared lightbox overlay.
+  Ported from ../index.html lines 1384–1424. Lightbox JS is in theme.js.
+  Each gallery image is a block so merchants can add/reorder in the customiser.
+{%- endcomment -%}
+
+<section id="our-work" class="section-wrap section-wrap--full">
+  <div class="fade-up section-header">
+    {%- if section.settings.label != blank -%}
+      <p class="label-line section-eyebrow">{{ section.settings.label }}</p>
+    {%- endif -%}
+    {%- if section.settings.headline != blank -%}
+      <h2 class="section-headline">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+  </div>
+
+  <div class="gallery-masonry fade-up">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.image != blank -%}
+        <div class="gallery-item" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          {{ block.settings.image | image_url: width: 1200 | image_tag:
+             alt: block.settings.image.alt | default: 'Peak Framed adventure map',
+             widths: '400,600,900,1200',
+             sizes: '(min-width: 768px) 33vw, 50vw',
+             loading: 'lazy' }}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.back_to_top_label != blank -%}
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="{{ section.settings.back_to_top_link | default: '#hero' }}" class="cta-btn" style="font-size:0.85rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        {{ section.settings.back_to_top_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+<!-- Shared lightbox overlay (used by gallery + add-on info icons via window.PeakFramedLightbox) -->
+<div class="gallery-lightbox" id="galleryLightbox">
+  <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+  <button class="lightbox-prev" aria-label="Previous image">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lightbox-next" aria-label="Next image">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery image enlarged">
+</div>
+
+{% schema %}
+{
+  "name": "Our Work — Gallery",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Eyebrow label", "default": "Our Work" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Gallery" },
+    { "type": "text", "id": "back_to_top_label", "label": "Back-to-top button label", "default": "Back to Top" },
+    { "type": "text", "id": "back_to_top_link", "label": "Back-to-top link", "default": "#hero" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Gallery image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Our Work — Gallery",
+      "blocks": [
+        { "type": "image" }, { "type": "image" }, { "type": "image" },
+        { "type": "image" }, { "type": "image" }, { "type": "image" },
+        { "type": "image" }, { "type": "image" }, { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

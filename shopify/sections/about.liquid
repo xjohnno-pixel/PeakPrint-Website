@@ -1,0 +1,53 @@
+{%- comment -%}
+  Section 02 — "3D Printed Terrain". Image left, text right.
+  Ported from ../index.html lines 1334–1356.
+{%- endcomment -%}
+
+<section id="about" class="section-wrap section-wrap--tight">
+  <div class="section-grid">
+    <div class="fade-up content-image section-image">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag:
+           alt: section.settings.image.alt | default: section.settings.headline,
+           widths: '600,900,1200',
+           sizes: '(min-width: 768px) 50vw, 100vw',
+           loading: 'lazy' }}
+      {%- endif -%}
+    </div>
+
+    <div class="fade-up section-text section-text--delay">
+      <span class="section-number section-number--right">{{ section.settings.number | default: '02' }}</span>
+      {%- if section.settings.label != blank -%}
+        <p class="label-line section-eyebrow">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.headline != blank -%}
+        <h2 class="section-headline">{{ section.settings.headline }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <p class="section-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="cta-btn section-cta">
+          {{ section.settings.cta_label }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section 02 — About",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "02" },
+    { "type": "text", "id": "label", "label": "Eyebrow label", "default": "3D Printed Terrain" },
+    { "type": "richtext", "id": "headline", "label": "Headline", "default": "<p>Crafted With<br>Precision</p>" },
+    { "type": "textarea", "id": "body", "label": "Body copy", "default": "Using high-resolution elevation data, we 3D print the actual terrain of your route — every ridge, valley, and switchback. Your adventure is highlighted across the landscape, turning raw GPS data into a tactile, topographic masterpiece." },
+    { "type": "image_picker", "id": "image", "label": "Side image" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "See Our Creations" },
+    { "type": "text", "id": "cta_link", "label": "CTA link", "default": "#our-work" }
+  ],
+  "presets": [{ "name": "Section 02 — About" }]
+}
+{% endschema %}

@@ -1,0 +1,53 @@
+{%- comment -%}
+  Section 01 — "Connect Your App". Text + image, two columns.
+  Ported from ../index.html lines 1309–1331.
+{%- endcomment -%}
+
+<section id="how-it-works" class="section-wrap">
+  <div class="section-grid">
+    <div class="fade-up section-text">
+      <span class="section-number section-number--right">{{ section.settings.number | default: '01' }}</span>
+      {%- if section.settings.label != blank -%}
+        <p class="label-line section-eyebrow">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.headline != blank -%}
+        <h2 class="section-headline">{{ section.settings.headline }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <p class="section-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="cta-btn section-cta">
+          {{ section.settings.cta_label }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="fade-up content-image section-image section-image--delay">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag:
+           alt: section.settings.image.alt | default: section.settings.headline,
+           widths: '600,900,1200',
+           sizes: '(min-width: 768px) 50vw, 100vw',
+           loading: 'lazy' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section 01 — How It Works",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "01" },
+    { "type": "text", "id": "label", "label": "Eyebrow label", "default": "Connect Your App" },
+    { "type": "richtext", "id": "headline", "label": "Headline", "default": "<p>Sync Your<br>Adventures</p>" },
+    { "type": "textarea", "id": "body", "label": "Body copy", "default": "Connect your favorite activity apps — Strava, AllTrails, Garmin, and more. We pull in the GPS data from your hikes, runs, rides, and ski days to recreate the exact terrain and route you conquered." },
+    { "type": "image_picker", "id": "image", "label": "Side image" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "About Us" },
+    { "type": "text", "id": "cta_link", "label": "CTA link", "default": "#about-us" }
+  ],
+  "presets": [{ "name": "Section 01 — How It Works" }]
+}
+{% endschema %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="{{ settings.color_bg }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- comment -%} font_face filters output raw @font-face CSS — MUST be wrapped in <style> {%- endcomment -%}
+  <style>
+    {%- if settings.font_display -%}
+      {{ settings.font_display | font_face: font_display: 'swap' }}
+      {{ settings.font_display | font_modify: 'weight', 'bolder' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+    {%- if settings.font_body -%}
+      {{ settings.font_body | font_face: font_display: 'swap' }}
+      {{ settings.font_body | font_modify: 'weight', 'bolder' | font_face: font_display: 'swap' }}
+    {%- endif -%}
+  </style>
+
+  <title>
+    {%- if request.page_type == 'index' -%}
+      {{ shop.name }} — Your Adventure. Framed.
+    {%- else -%}
+      {{ page_title }} | {{ shop.name }}
+    {%- endif -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {%- comment -%} Design tokens — drawn live from theme settings. {%- endcomment -%}
+  <style>
+    :root {
+      --color-bg:           {{ settings.color_bg }};
+      --color-surface-1:    {{ settings.color_surface_1 }};
+      --color-surface-2:    {{ settings.color_surface_2 }};
+      --color-surface-3:    {{ settings.color_surface_3 }};
+      --color-accent:       {{ settings.color_accent }};
+      --color-accent-light: {{ settings.color_accent_light }};
+      --color-text:         {{ settings.color_text }};
+      --color-text-secondary: rgba(226, 232, 240, 0.6);
+      --color-text-muted:     rgba(226, 232, 240, 0.4);
+      --color-white:        {{ settings.color_white }};
+
+      --font-display: {{ settings.font_display.family }}, {{ settings.font_display.fallback_families }};
+      --font-body:    {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+
+      --container-max: {{ settings.container_max }}px;
+      --container-pad: {{ settings.container_pad }}rem;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 12px;
+
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  </style>
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {%- comment -%} Cloudinary upload config — read by theme.js at runtime. {%- endcomment -%}
+  <script>
+    window.PEAKFRAMED = {
+      cloudinary: {
+        cloudName:    {{ settings.cloudinary_cloud_name | json }},
+        uploadPreset: {{ settings.cloudinary_upload_preset | json }},
+        maxBytes:     {{ settings.cloudinary_max_mb | times: 1048576 }}
+      },
+      basePrice:  {{ settings.base_price_aud | default: 169 }},
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
+
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ template | replace: '.', '-' | handle }}">
+  <a class="visually-hidden skip-link" href="#main">Skip to content</a>
+
+  {% sections 'header-group' %}
+
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  {{ 'theme.js' | asset_url | script_tag }}
+</body>
+</html>

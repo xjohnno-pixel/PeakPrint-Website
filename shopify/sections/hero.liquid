@@ -1,0 +1,102 @@
+{%- comment -%}
+  Peak Framed hero — full-viewport intro with background image, label, headline,
+  body copy, CTA, and scroll cue. Ported from ../index.html lines 1280–1306.
+  All copy and the background image are editable in the theme customiser.
+{%- endcomment -%}
+
+<section id="hero" class="hero-section">
+  <div class="hero-bg">
+    {%- if section.settings.bg_image != blank -%}
+      {{ section.settings.bg_image | image_url: width: 2400 | image_tag:
+         alt: section.settings.bg_image.alt | default: section.settings.headline,
+         widths: '600,900,1200,1600,2400',
+         sizes: '100vw',
+         loading: 'eager',
+         fetchpriority: 'high' }}
+    {%- endif -%}
+  </div>
+
+  <div class="hero-content">
+    {%- if section.settings.label != blank -%}
+      <p class="label-line label-line--hero">{{ section.settings.label }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.headline != blank -%}
+      <h1 class="hero-headline">{{ section.settings.headline }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <p class="hero-body">{{ section.settings.body }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+      <a href="{{ section.settings.cta_link }}" class="cta-btn cta-btn--hero">
+        {{ section.settings.cta_label }}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_scroll_cue -%}
+    <div class="scroll-indicator">
+      <span>scroll down</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image",
+      "info": "High-resolution, landscape. Will be cropped to fill the viewport."
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Eyebrow label",
+      "default": "Your Adventure. Framed."
+    },
+    {
+      "type": "richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "<p>Turn Your Adventures<br>Into Timeless Art</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body copy",
+      "default": "We transform your GPS adventures from Strava, AllTrails, and more into stunning 3D-printed framed maps you can hang on your wall."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Discover How"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "CTA button link",
+      "default": "#how-it-works",
+      "info": "Use a full URL (https://...) or an in-page anchor like #how-it-works"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_cue",
+      "label": "Show \"scroll down\" cue",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

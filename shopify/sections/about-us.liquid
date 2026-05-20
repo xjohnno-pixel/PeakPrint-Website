@@ -1,0 +1,75 @@
+{%- comment -%}
+  About Us — brand story. Founders' photo + multi-paragraph copy with three
+  styled accent lines (lead / highlight / sign-off). Ported from
+  ../index.html lines 1698–1732.
+{%- endcomment -%}
+
+<section id="about-us" class="section-wrap section-wrap--full" style="padding:6rem var(--container-pad);">
+  <div class="fade-up section-header">
+    {%- if section.settings.label != blank -%}
+      <p class="label-line section-eyebrow">{{ section.settings.label }}</p>
+    {%- endif -%}
+    {%- if section.settings.headline != blank -%}
+      <h2 class="section-headline">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+  </div>
+
+  <div class="about-us-grid fade-up">
+    <div class="about-us-image">
+      {%- if section.settings.founders_image != blank -%}
+        {{ section.settings.founders_image | image_url: width: 1200 | image_tag:
+           alt: section.settings.founders_image.alt | default: 'Founders of Peak Framed',
+           widths: '400,600,900,1200',
+           sizes: '(min-width: 768px) 40vw, 100vw',
+           loading: 'lazy' }}
+      {%- else -%}
+        <img src="https://placehold.co/600x750/162533/c4956a?text=John+%26+Keegan" alt="John and Keegan — founders of Peak Framed">
+      {%- endif -%}
+    </div>
+
+    <div class="about-us-text">
+      {%- if section.settings.lead != blank -%}
+        <p class="about-us-lead">{{ section.settings.lead }}</p>
+      {%- endif -%}
+
+      {{ section.settings.body_before_highlight }}
+
+      {%- if section.settings.highlight != blank -%}
+        <p class="about-us-highlight">{{ section.settings.highlight }}</p>
+      {%- endif -%}
+
+      {{ section.settings.body_after_highlight }}
+
+      {%- if section.settings.sign_off != blank -%}
+        <p class="about-us-sign-off">{{ section.settings.sign_off }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Us",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Eyebrow label", "default": "Who We Are" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "About Us" },
+    { "type": "image_picker", "id": "founders_image", "label": "Founders photo (portrait orientation recommended)" },
+    { "type": "text", "id": "lead", "label": "Lead line (styled accent)", "default": "Some of our best memories live inside an app." },
+    {
+      "type": "richtext",
+      "id": "body_before_highlight",
+      "label": "Body — first block (before highlight)",
+      "default": "<p>That summit you finally reached after months of training. The trail that pushed you harder than you thought you could go. The ride that made you fall in love with a place you'd never been. They're all there — buried in a feed, reduced to a screenshot you show someone over coffee before the conversation moves on.</p><p>We wanted more than that.</p><p>We're John and Keegan — two mates from Melbourne who love 3D printing and love the outdoors even more. We've spent years chasing trails, bagging peaks, and pushing each other up mountains we probably should've trained harder for. And every time we finished something we were proud of, we had the same problem: there was no good way to hold onto it.</p><p>Medals end up in drawers. Screenshots get lost in camera rolls. The story fades.</p>"
+    },
+    { "type": "text", "id": "highlight", "label": "Highlight line (styled accent)", "default": "So we built Peak Framed." },
+    {
+      "type": "richtext",
+      "id": "body_after_highlight",
+      "label": "Body — second block (after highlight)",
+      "default": "<p>Every piece we make starts with your actual GPS data — the route you ran, hiked, or rode — and turns it into a 3D-printed topographic map of the terrain you conquered. Your trail. Your elevation. Your name and stats. Mounted in a clean, premium frame that belongs on your wall, not in a box.</p><p>We're not a factory. We're two guys with a printer, a workshop, and a genuine belief that your achievements deserve more than a notification. They deserve to be seen, touched, and talked about — not just once, but every time someone walks past your wall and asks, \"what's that?\"</p>"
+    },
+    { "type": "text", "id": "sign_off", "label": "Sign-off line (styled accent)", "default": "That's Peak Framed. Your adventure. Framed." }
+  ],
+  "presets": [{ "name": "About Us" }]
+}
+{% endschema %}

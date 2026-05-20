@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Email:** hello@peakframed.com.au
 - **ABN:** 23 937 267 604
 - **Social:** Instagram only — https://www.instagram.com/peakframed
-- **Price:** $169 AUD inclusive of delivery (add-ons +$10 each, or +$16 for both)
+- **Price:** $169 AUD inclusive of delivery. Optional add-ons: wall mount system +$15, desktop stand +$10, both +$20.
 
 ## Deployment Stack
 - **Development:** Single `index.html` with inline styles, served locally for preview
@@ -46,6 +46,39 @@ Flow:
 Why: keeps the full UX we already built, $0 at our scale (free tier is 25 GB / 25 GB bandwidth), no vendor lock to a Shopify app, and Cloudinary webhooks can later auto-pipe files into Drive/CRM without Zapier.
 
 Lockdown notes for the Cloudinary preset: restrict allowed formats, set a max file size (e.g. 25 MB), pin to a single folder, and rotate the preset name if it ever leaks.
+
+### Optional Add-Ons product (configured 2026-05-20)
+The product-order section adds the customer's add-on choice to the cart as a second line item, billed at the right price. **Product details — do not edit casually:**
+
+- **Product GID:** `gid://shopify/Product/7242176036928`
+- **Handle:** `optional-add-ons`
+- **Status:** ACTIVE, published to Online Store (cart access requires this; not added to any collection so it stays out of nav/search)
+- **Single option:** "Add-on" — 3 values:
+
+| Value | Price | SKU | Variant ID |
+|---|---|---|---|
+| Wall mount system | $15 AUD | PF-ADDON-WALL  | `41120384778304` |
+| Desktop stand     | $10 AUD | PF-ADDON-STAND | `41120384811072` |
+| Wall mount + Desktop stand | $20 AUD | PF-ADDON-BOTH | `41120384843840` |
+
+Variant IDs are baked into `shopify/templates/index.json` under the `product-order` section settings. If you change/replace this product in Shopify admin, **update those three IDs** or the cart will silently drop the add-on line item. Inventory tracking is off (always available, like the Adventure Map).
+
+If a customer later visits `/products/optional-add-ons` directly (e.g. someone shares the URL), they'll see a bare product page with no add-to-cart wiring back to the framed map. Acceptable for launch; revisit if it becomes a support issue.
+
+### Transactional emails (Shopify Notifications)
+Custom-branded Liquid templates live in **Shopify admin → Settings → Notifications**. Templates we've replaced so far:
+
+- **Order confirmation** — Peak Framed dark header + light body, surfaces all line item properties (Title of Adventure, Distance, etc.), Cloudinary GPS file link, production timeline copy, branches on pickup vs delivery.
+
+**Logo convention — hardcode the CDN URL, do not use `{{ email_logo_url }}`.** Shopify's `email_logo_url` variable does not reliably populate on this store (tried 2026-05-20, never resolved even after Save). For every notification template that needs the logo, paste this `<img>` directly:
+
+```liquid
+<img src="https://cdn.shopify.com/s/files/1/0606/6221/8816/files/PeakFramedLandscapeWhite.png" alt="{{ shop.name }}" width="160" style="display:inline-block; max-width:160px; height:auto;">
+```
+
+The URL is a permanent Shopify CDN link to `PeakFramedLandscapeWhite.png` in the store's Files. If we ever swap that file we'd need to update every notification template — small cost vs. the variable's unreliability.
+
+**Email branding settings** (Settings → Notifications → Customize email templates) can still be set for the accent colour (`#c4956a`) so any system-default Shopify templates we haven't replaced yet pick up brand colour at least. But the logo upload there does not need to be set since we're hardcoding the URL.
 
 ### Local pickup — Melbourne only (Shopify migration to-do)
 Collection in person is restricted to the **Melbourne metropolitan area**, served by two pickup points:
@@ -206,6 +239,7 @@ Drafts of Privacy Policy, Terms of Service, and Shipping & Returns Policy live a
 - **Damaged-in-transit window:** 5 business days from delivery — **photos only, no return required**
 - **Bulk orders:** customers must contact for >10 maps in one transaction
 - **Gift orders:** discouraged; recommend gift cards instead. Gift cards are sold at a **single fixed denomination of $169 AUD** — exactly one standard framed map. No partial-value or custom-amount gift cards. Add-ons (wall mount system, stand) are covered by the recipient at checkout if they want them, or by gifting a second card. Brand message: "give a frame, not a fraction."
+  - **2026-05-20 audit note**: the store currently has **two** gift card products (`peakframed-gift-card-one-adventure-map` and `peakframed-gift-card-one-adventure-map-wall-mount-or-stand`), both priced $169. This diverges from the "one denomination" rule above. **Decide and consolidate**: either archive the second product (cleanest), or keep both at $169 and price the second one correctly at $179 if it's meant to bundle an add-on. Until then the customer experience is ambiguous.
 - **Abandoned-cart emails:** opt-in only, via Shopify; covered in Privacy Policy § 4a
 
 Update these decisions in the markdown files first, then regenerate PDFs (see below).

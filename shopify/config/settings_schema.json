@@ -1,0 +1,193 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Peak Framed",
+    "theme_version": "1.0.0",
+    "theme_author": "Peak Framed",
+    "theme_documentation_url": "https://peakframed.com.au",
+    "theme_support_email": "hello@peakframed.com.au"
+  },
+
+  {
+    "name": "Brand colours",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Surfaces (dark → less dark)"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Base background",
+        "default": "#0a1118"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_1",
+        "label": "Elevated surface 1",
+        "default": "#0f1a24"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_2",
+        "label": "Elevated surface 2",
+        "default": "#162533"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_3",
+        "label": "Elevated surface 3",
+        "default": "#1e3044"
+      },
+
+      {
+        "type": "header",
+        "content": "Accent (CTA, links, focus rings)"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (warm gold)",
+        "default": "#c4956a"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_light",
+        "label": "Accent — light (hover/highlight)",
+        "default": "#e8d5c0"
+      },
+
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary text",
+        "default": "#e2e8f0"
+      },
+      {
+        "type": "color",
+        "id": "color_white",
+        "label": "White (on accent fills)",
+        "default": "#ffffff"
+      }
+    ]
+  },
+
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_display",
+        "label": "Display / heading font",
+        "default": "playfair_display_n6",
+        "info": "Used for all headings. Default: Playfair Display Semibold."
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "assistant_n4",
+        "info": "Used for body copy and UI. Falls back to the system sans-serif stack on customer devices."
+      }
+    ]
+  },
+
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "container_max",
+        "label": "Container max width",
+        "unit": "px",
+        "min": 1000,
+        "max": 1400,
+        "step": 20,
+        "default": 1200
+      },
+      {
+        "type": "range",
+        "id": "container_pad",
+        "label": "Container side padding",
+        "unit": "rem",
+        "min": 1.0,
+        "max": 4.0,
+        "step": 0.1,
+        "default": 2.5
+      }
+    ]
+  },
+
+  {
+    "name": "Product page",
+    "settings": [
+      {
+        "type": "product",
+        "id": "default_product",
+        "label": "Main product (Adventure Map)",
+        "info": "The custom 3D-printed framed map. Used on the homepage order section."
+      },
+      {
+        "type": "number",
+        "id": "base_price_aud",
+        "label": "Base price (AUD)",
+        "default": 169,
+        "info": "Used for client-side total calculations. Must match the Shopify variant price."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_addons",
+        "label": "Show optional add-ons (wall mount, stand)",
+        "default": true
+      }
+    ]
+  },
+
+  {
+    "name": "Cloudinary file upload",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Direct browser → Cloudinary upload, used for GPS route files and screenshots. Set the unsigned upload preset in your Cloudinary account dashboard. See CLAUDE.md for the security checklist."
+      },
+      {
+        "type": "text",
+        "id": "cloudinary_cloud_name",
+        "label": "Cloudinary cloud name",
+        "info": "Found in your Cloudinary account dashboard."
+      },
+      {
+        "type": "text",
+        "id": "cloudinary_upload_preset",
+        "label": "Unsigned upload preset",
+        "info": "Create in Cloudinary → Settings → Upload → Add upload preset. Mode: Unsigned. Lock down formats and max file size."
+      },
+      {
+        "type": "range",
+        "id": "cloudinary_max_mb",
+        "label": "Max file size (client-side guard)",
+        "unit": "MB",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "default": 25
+      }
+    ]
+  },
+
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "default": "https://www.instagram.com/peakframed"
+      }
+    ]
+  }
+]

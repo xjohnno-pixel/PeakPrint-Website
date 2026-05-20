@@ -1,0 +1,44 @@
+{
+  "current": {
+    "color_bg": "#0a1118",
+    "color_surface_1": "#0f1a24",
+    "color_surface_2": "#162533",
+    "color_surface_3": "#1e3044",
+    "color_accent": "#c4956a",
+    "color_accent_light": "#e8d5c0",
+    "color_text": "#e2e8f0",
+    "color_white": "#ffffff",
+    "font_display": "playfair_display_n6",
+    "font_body": "assistant_n4",
+    "container_max": 1200,
+    "container_pad": 2.5,
+    "base_price_aud": 169,
+    "show_addons": true,
+    "cloudinary_cloud_name": "dhz0lhqcf",
+    "cloudinary_upload_preset": "peakframed_orders_unsigned",
+    "cloudinary_max_mb": 25,
+    "social_instagram": "https://www.instagram.com/peakframed"
+  },
+  "presets": {
+    "Peak Framed (default)": {
+      "color_bg": "#0a1118",
+      "color_surface_1": "#0f1a24",
+      "color_surface_2": "#162533",
+      "color_surface_3": "#1e3044",
+      "color_accent": "#c4956a",
+      "color_accent_light": "#e8d5c0",
+      "color_text": "#e2e8f0",
+      "color_white": "#ffffff",
+      "font_display": "playfair_display_n6",
+      "font_body": "assistant_n4",
+      "container_max": 1200,
+      "container_pad": 2.5,
+      "base_price_aud": 169,
+      "show_addons": true,
+      "cloudinary_cloud_name": "dhz0lhqcf",
+      "cloudinary_upload_preset": "peakframed_orders_unsigned",
+      "cloudinary_max_mb": 25,
+      "social_instagram": "https://www.instagram.com/peakframed"
+    }
+  }
+}

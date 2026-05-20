@@ -1,0 +1,21 @@
+{%- comment -%}
+  Generic page renderer — used for Privacy Policy, Terms of Service,
+  Shipping & Returns, About Us, etc. Renders page.content as-is from
+  the Shopify admin page editor.
+{%- endcomment -%}
+
+<article class="static-page" style="max-width: var(--container-max); margin: 0 auto; padding: 8rem var(--container-pad) 4rem;">
+  <header style="margin-bottom: 2.5rem;">
+    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; color: var(--color-white); letter-spacing: -0.02em;">{{ page.title }}</h1>
+  </header>
+  <div class="rte" style="line-height: 1.7; color: var(--color-text); font-size: 1rem;">
+    {{ page.content }}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}
